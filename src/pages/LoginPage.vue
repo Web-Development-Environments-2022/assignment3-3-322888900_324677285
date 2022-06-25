@@ -109,7 +109,7 @@ export default {
           }
         );
         // console.log(response);
-        // this.$root.loggedIn = true;
+        this.$root.loggedIn = true;
         console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
         this.$router.push("/");

@@ -1,17 +1,27 @@
 <template>
   <div id="app">
     <div id="nav">
+      <select v-if="$root.store.username" >
+          <option value="" selected disabled hidden>Personal</option>
+                <option>Favourites</option>
+                <option>Private</option>
+                <option>La Familia</option>
+
+</select> 
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
-      {{ !$root.store.username }}
       <span v-if="!$root.store.username">
         Guest:
         <router-link :to="{ name: 'register' }">Register</router-link>|
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else>
+        Welcome:
         {{ $root.store.username }}: <button @click="Logout">Logout</button>|
       </span>
+      <!-- <router-link :to="{}" v-if= "!$root.store.username">       </router-link> -->
+       
+
     </div>
     <router-view />
   </div>
@@ -20,6 +30,15 @@
 <script>
 export default {
   name: "App",
+ //  data() {
+   // return{
+     //   options: [
+       //     {key: 1, name: "Favourites"},
+         //   {key: 2, name: "Private"},
+           // {key: 3, name: "La Famila"},            
+        //]
+      //}
+    //},
   methods: {
     Logout() {
       this.$root.store.logout();

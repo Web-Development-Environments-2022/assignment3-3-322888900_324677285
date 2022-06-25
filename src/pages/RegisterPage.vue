@@ -182,8 +182,9 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
+          "https://test-for-3-2.herokuapp.com/user/Register",
+          // this.$root.store.server_domain + "/Register",
+          // process.env.VUE_APP_ROOT_API + "/Register",
 
           {
             username: this.form.username,

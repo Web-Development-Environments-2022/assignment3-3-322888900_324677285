@@ -10,7 +10,7 @@
           <div class="wrapped">
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+              <div>Likes: {{ recipe.popularity }} likes</div>
             </div>
             Ingredients:
             <ul>
@@ -51,18 +51,17 @@ export default {
   async created() {
     try {
       let response;
-      // response = this.$route.params.response;
+      response = this.$route.params.response;
 
       try {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          this.$root.store.server_domain + "/recipes/info",
-          {
-            params: { id: this.$route.params.recipeId }
-          }
+          // this.$root.store.server_domain + "/recipes/info",
+          "http://localhost:3000/recipes/fullRecipe/" + this.$route.params.recipeId 
+          // process.env.VUE_APP_ROOT_API + "/recipes/fullRecipe",
         );
 
-        // console.log("response.status", response.status);
+        console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log("error.response.status", error.response.status);
@@ -70,15 +69,16 @@ export default {
         return;
       }
 
+      console.log(response.data)
       let {
         analyzedInstructions,
         instructions,
         extendedIngredients,
-        aggregateLikes,
+        popularity,
         readyInMinutes,
         image,
         title
-      } = response.data.recipe;
+      } = response.data;
 
       let _instructions = analyzedInstructions
         .map((fstep) => {
@@ -92,7 +92,7 @@ export default {
         _instructions,
         analyzedInstructions,
         extendedIngredients,
-        aggregateLikes,
+        popularity,
         readyInMinutes,
         image,
         title

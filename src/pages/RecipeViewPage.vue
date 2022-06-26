@@ -97,8 +97,8 @@ export default {
         image,
         title
       };
-
-      this.recipe = _recipe;
+    localStorage.getItem("lastRecipes").recipe1= this.$route.params.recipeId
+    this.recipe = _recipe;
     } catch (error) {
       console.log(error);
     }

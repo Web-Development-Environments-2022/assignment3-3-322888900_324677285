@@ -70,6 +70,7 @@ const shared_data = {
   username: localStorage.username,
   login(username) {
     localStorage.setItem("username", username);
+    localStorage.setItem("lastRecipes", JSON.stringify({"recipe1":"","recipe2":"","recipe3":"",}));
     this.username = username;
     console.log("login", this.username);
   },

@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <select v-if="$root.store.username" >
-          <option value="" selected disabled hidden>Personal</option>
-                <option>Favourites</option>
-                <option>Private</option>
-                <option>La Familia</option>
-
-      </select> 
+      <b-nav-item-dropdown text="Choose page" left>
+          <b-dropdown-item :to="{ name: 'favorites' }">favorites</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'myRecipes' }">my recipes</b-dropdown-item>
+        </b-nav-item-dropdown>
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <span v-if="!$root.store.username">

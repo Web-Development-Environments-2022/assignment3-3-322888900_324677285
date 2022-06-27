@@ -75,7 +75,7 @@
 </b-form>   
  <b-alert
       class="mt-2"
-      v-if="didEnterValue&& recipes.length==0"
+      v-if="didEnterValue && recipes.length==0"
       variant="warning"
       dismissible
       show
@@ -134,8 +134,8 @@ export default{
             numberOfResults: this.numberOfResults,
             cuisine: "" ? undefined : this.cuisine,
             diet: "" ? undefined : this.diet,
-            intolerances: "" ? undefined : this.intolerances
-        
+            intolerances: "" ? undefined : this.intolerances,
+            withCredentials: false
         }
     }
   );

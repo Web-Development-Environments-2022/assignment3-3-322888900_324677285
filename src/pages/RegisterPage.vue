@@ -272,6 +272,7 @@ export default {
             lastname:  this.form.lastName,
             country:this.form.country ,
             email: this.form.email,
+            withCredentials: false
             //NEED TO ADD PROFILE PICTURE
           }
         );

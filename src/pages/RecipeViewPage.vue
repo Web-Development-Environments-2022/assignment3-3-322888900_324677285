@@ -58,9 +58,11 @@ export default {
     async like() {
       try {
         console.log("call like favourite ")
+        console.log(this.$route.params.recipeId)
         const response = await this.axios.post(
-          "http://localhost:3000/favorites",{
-            recipe_id:this.$route.params.recipeId
+          "http://localhost:3000/user/favorites",{
+            // withCredentials: true,
+            recipe_id: this.$route.params.recipeId
     }
   );
       } catch (error) {

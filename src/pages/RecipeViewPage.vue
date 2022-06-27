@@ -31,12 +31,18 @@
             </ol>
           </div>
         </div>
+      
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
+    
+<b-form @submit.prevent="like">
+      <b-button
+        type="submit"
+        variant="primary"
+        style="width:100px;display:block;"
+        class="mx-auto w-100"
+        >Add To Favourites</b-button
+      >
+      </b-form>
     </div>
   </div>
 </template>
@@ -47,6 +53,20 @@ export default {
     return {
       recipe: null
     };
+  },
+    methods: {
+    async like() {
+      try {
+        console.log("call like favourite ")
+        const response = await this.axios.post(
+          "http://localhost:3000/favorites",{
+            recipe_id:this.$route.params.recipeId
+    }
+  );
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
   async created() {
     try {
@@ -97,7 +117,7 @@ export default {
         image,
         title
       };
-    localStorage.getItem("lastRecipes").recipe1= this.$route.params.recipeId
+    //localStorage.getItem("lastRecipes").recipe1= this.$route.params.recipeId
     this.recipe = _recipe;
     } catch (error) {
       console.log(error);

@@ -105,7 +105,8 @@ export default {
 
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            withCredentials: false
           }
         );
         // console.log(response);

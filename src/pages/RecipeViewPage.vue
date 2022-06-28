@@ -61,12 +61,8 @@ export default {
         console.log(this.$route.params.recipeId)
         const response = await this.axios.post(
           "http://localhost:3000/user/favorites",{
-<<<<<<< HEAD
-            recipe_id:this.$route.params.recipeId
-=======
             // withCredentials: true,
             recipe_id: this.$route.params.recipeId
->>>>>>> cce26de716b3e14157845add809e84a26aff108e
     }
   );
       } catch (error) {

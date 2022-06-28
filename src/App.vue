@@ -1,11 +1,20 @@
 <template>
   <div id="app">
     <div id="nav">
-      <b-nav-item-dropdown text="Choose page" left>
+      <b-nav-item-dropdown v-if="$root.store.username" text="Choose page" left>
           <b-dropdown-item :to="{ name: 'favorites' }">favorites</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'myRecipes' }">my recipes</b-dropdown-item>
         </b-nav-item-dropdown>
+             <b-button
+         @click="AddRecipe"
+        variant="primary"
+        style="width:250px;"
+        class="ml-5 w-75"
+        v-if="$root.store.username" 
+        >Add Recipe</b-button
+      >
+      <RecipeModal ></RecipeModal>
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <span v-if="!$root.store.username">
@@ -26,18 +35,19 @@
 </template>
 
 <script>
+import RecipeModal from "./components/RecipeModal.vue";
+
 export default {
   name: "App",
- //  data() {
-   // return{
-     //   options: [
-       //     {key: 1, name: "Favourites"},
-         //   {key: 2, name: "Private"},
-           // {key: 3, name: "La Famila"},            
-        //]
-      //}
-    //},
+components: {
+    RecipeModal
+}, 
   methods: {
+    AddRecipe(){//TODO HOW TO OPEN MODAL?????
+       let element = this.$refs.modal
+      $(element).modal('show')
+    }
+    ,
     Logout() {
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");

@@ -13,7 +13,7 @@ export default {
   },
   data() {
     return {
-      page_type: "random"
+      page_type: "favorites"
     };
   }
 };

@@ -59,7 +59,7 @@ export default {
       try {
         console.log("call like favourite ")
         const response = await this.axios.post(
-          "http://localhost:3000/favorites",{
+          "http://localhost:3000/user/favorites",{
             recipe_id:this.$route.params.recipeId
     }
   );

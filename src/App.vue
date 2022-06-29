@@ -6,14 +6,14 @@
           <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'myRecipes' }">my recipes</b-dropdown-item>
         </b-nav-item-dropdown>
-             <b-button
+             <!-- <b-button
          @click="AddRecipe"
         variant="primary"
         style="width:250px;"
         class="ml-5 w-75"
         v-if="$root.store.username" 
         >Add Recipe</b-button
-      >
+      > -->
       <RecipeModal ></RecipeModal>
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
@@ -43,11 +43,7 @@ components: {
     RecipeModal
 }, 
   methods: {
-    AddRecipe(){//TODO HOW TO OPEN MODAL?????
-       let element = this.$refs.modal
-      $(element).modal('show')
-    }
-    ,
+  
     Logout() {
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");

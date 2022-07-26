@@ -80,7 +80,7 @@
       dismissible
       show
     >
-      Please Enter Valid Recipes
+      No Such Recipes
     </b-alert>   
       </div>
 </template>

@@ -38,8 +38,10 @@ export default {
       console.log(this._props.page_type)
       if(this._props.page_type == "random")
         this.updateRandomRecipes();
-      else if(this._props.page_type == "favorites")
+      else if(this._props.page_type == "favorites"){
         this.updateFavoritesRecipes(); 
+        console.log("hereeee")
+      }
       else if(this._props.page_type == "family")
         this.updateFamilyRecipes(); //NOT IMPLEMENTED YET
       else if(this._props.page_type == "myRecipes")
@@ -47,6 +49,25 @@ export default {
     });
   },
   methods: {
+    async  updateFamilyRecipes(){
+ try {
+        const response = await this.axios.get(
+          // process.env.VUE_APP_ROOT_API + "/recipes/random",
+          "http://localhost:3000/user/family"
+          // this.$root.store.server_domain
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+
+        // console.log(response);
+        const recipes = response.data;
+        console.log(response)
+        this.recipes = [];
+        this.recipes.push(...recipes);
+        // console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async updateRandomRecipes() {
       try {
         const response = await this.axios.get(
@@ -79,7 +100,7 @@ export default {
         // console.log(response);
   //      const recipes = response.data.recipes;
         console.log(response.data)
-        this.recipes =response.data.recipes 
+        this.recipes=response.data 
         //[];
 //        this.recipes.push(...recipes);
         // console.log(this.recipes);

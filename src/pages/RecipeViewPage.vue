@@ -1,5 +1,14 @@
 <template>
   <div class="container">
+    <b-alert
+      class="mt-2"
+      v-if="addedTofav"
+      variant="warning"
+      dismissible
+      show
+    >
+      Added to favorites
+    </b-alert>
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
@@ -51,7 +60,8 @@
 export default {
   data() {
     return {
-      recipe: null
+      recipe: null,
+      addedTofav:false
     };
   },
     methods: {
@@ -63,8 +73,10 @@ export default {
           "http://localhost:3000/user/favorites",{
             // withCredentials: true,
             recipe_id: this.$route.params.recipeId
-    }
-  );
+    },
+);
+    this.addedTofav=true
+    console.log(addedTofav)
       } catch (error) {
         console.log(error);
       }

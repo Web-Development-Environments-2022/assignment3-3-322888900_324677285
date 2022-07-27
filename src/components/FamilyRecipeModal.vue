@@ -1,7 +1,7 @@
 <template  >
-<div>
-    <b-button v-b-modal.modal-1>Enter Family Recipe</b-button>
-  <b-modal id="modal-1" title="Family Recipe"  @ok="submitRecipe">
+<div class="container">
+    <b-button v-b-modal.family-modal>Enter Family Recipe</b-button>
+  <b-modal id="family-modal" title="Family Recipe"  @ok="submitRecipe">
     <p class="my-4">Hello, Please Enter Your Family recipe</p>
    <div class="form-group">
             <label for="RecipeName" class="col-form-label">Please Enter Recipe Name:</label>

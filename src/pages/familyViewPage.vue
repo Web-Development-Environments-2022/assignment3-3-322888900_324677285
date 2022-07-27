@@ -1,15 +1,18 @@
 <template>
   <div class="container">
     <h1 class="title">Family Recipes</h1>
-    <RecipePreviewList title="Family Recipes" class="RandomRecipes center" page_type="family" />
+    <FamilyRecipeModal></FamilyRecipeModal>
+    <RecipePreviewList title="Family Recipes" class="FamilyRecipes center" page_type="family" />
   </div>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import FamilyRecipeModal from "../components/FamilyRecipeModal.vue";
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
+    FamilyRecipeModal
   }
 };
 </script>

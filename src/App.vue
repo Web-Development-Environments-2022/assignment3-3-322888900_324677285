@@ -29,8 +29,9 @@
           </b-nav-item-dropdown>
         </span>
       </span>
-      <!-- <router-link :to="{}" v-if= "!$root.store.username">       </router-link> -->
-       
+      <!-- <router-link :to="{}" v-if= "!$root.store.username">       </router-link> 
+      <button @click="NewRecipes">New Recipes</button>-->
+   
     </div>
     <router-view />
   </div>

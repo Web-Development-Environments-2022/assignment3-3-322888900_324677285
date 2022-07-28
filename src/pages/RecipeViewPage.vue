@@ -136,8 +136,38 @@ export default {
     } catch (error) {
       console.log(error);
     }
+    await addLastSeenRecipes()
+  },
+  async addLastSeenRecipes(){
+      try {
+      let response;
+      response = this.$route.params.response;
+      try {
+        const response = await this.axios.post(
+          "http://localhost:3000/user/lastSeenRecipes", {
+        
+           recipe :this.recipe,
+    }
+  );
+
+        console.log("response.status", response.status);
+        if (response.status !== 200) this.$router.replace("/NotFound");
+      } catch (error) {
+      console.log("error.response.status", error.response.status);
+      this.$router.replace("/NotFound");
+       return;
+      }
   }
+    catch (error) {
+        console.log("error.response.status", error.response.status);
+        this.$router.replace("/NotFound");
+        return;   }
+}
 };
+
+
+
+
 </script>
 
 <style scoped>

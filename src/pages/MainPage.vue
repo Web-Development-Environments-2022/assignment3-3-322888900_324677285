@@ -4,9 +4,8 @@
     <RecipePreviewList title="Random Recipes" class="RandomRecipes center" page_type="random"></RecipePreviewList>
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
     {{ $root.store.username }}
-    <RecipePreviewList v-if="$root.store.username" title="Last Viewed Recipes" class="recentleyViewed center" page_type="recentleyViewed"
-      
-    ></RecipePreviewList>
+    <RecipePreviewList title="Last View Recipes" class="RandomRecipes center" page_type="lastThree"></RecipePreviewList>
+
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >

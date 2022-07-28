@@ -42,8 +42,8 @@ export default {
         this.updateFavoritesRecipes(); 
         console.log("hereeee")
       }
-      else if(this._props.page_type == "family")
-        this.updateFamilyRecipes(); //NOT IMPLEMENTED YET
+      else if(this._props.page_type == "lastThree")
+        this.updateLastSeenRecipes(); //NOT IMPLEMENTED YET  
       else if(this._props.page_type == "myRecipes")
         this.updateMyRecipes(); //NOT IMPLEMENTED YET
       else if(this._props.page_type == "recentleyViewed")
@@ -53,12 +53,18 @@ export default {
   methods: {
     async  updateFamilyRecipes(){
  try {
-        const response = await this.axios.get(
-          // process.env.VUE_APP_ROOT_API + "/recipes/random",
-          "http://localhost:3000/user/family"
-          // this.$root.store.server_domain
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
+        const response = await this.axios.post(
+          "http://localhost:3000/user/family", {
+        
+           recipe_id :this.recipeName,
+           recipe_owner : this.recipeOwner,
+           when_to_cook : this.whenToCook,
+           ingredients : this.ingredients,
+           instructions : this.instructions,
+           photos : this.photos
+        
+    }
+  );
 
         // console.log(response);
         const recipes = response.data;
@@ -111,7 +117,7 @@ export default {
       try {
         const response = await this.axios.get(
           // process.env.VUE_APP_ROOT_API + "/recipes/random",
-          "http://localhost:3000/user/lastSeenRecipes", {withCredentials: false}
+          "http://localhost:3000/user/lastSeenRecipes"
           // this.$root.store.server_domain
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
@@ -122,7 +128,7 @@ export default {
         this.recipes.push(response.data.FirstRecipe);
         this.recipes.push(response.data.SecondRecipe);
         this.recipes.push(response.data.ThirdRecipe);
-        console.log(this.recipes);
+        console.log("THREE RECIPES:"+this.recipes);
         }
       catch (error) {
         console.log(error);

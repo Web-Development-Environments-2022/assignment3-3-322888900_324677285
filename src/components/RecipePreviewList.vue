@@ -46,6 +46,8 @@ export default {
         this.updateFamilyRecipes(); //NOT IMPLEMENTED YET
       else if(this._props.page_type == "myRecipes")
         this.updateMyRecipes(); //NOT IMPLEMENTED YET
+      else if(this._props.page_type == "recentleyViewed")
+        this.updateLastSeenRecipes(); //NOT IMPLEMNETED YET
     });
   },
   methods: {
@@ -100,6 +102,29 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes); 
       } catch (error) {
+        console.log(error);
+      }
+    },
+
+    // not finished yet - throws 401
+    async updateLastSeenRecipes(){
+      try {
+        const response = await this.axios.get(
+          // process.env.VUE_APP_ROOT_API + "/recipes/random",
+          "http://localhost:3000/user/lastSeenRecipes", {withCredentials: false}
+          // this.$root.store.server_domain
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+
+        // NEED TO CHECK IT! - I THINK WE RETURN ONLY RECIPES ID'S... CHECK IT
+        console.log(response);
+        this.recipes = [];
+        this.recipes.push(response.data.FirstRecipe);
+        this.recipes.push(response.data.SecondRecipe);
+        this.recipes.push(response.data.ThirdRecipe);
+        console.log(this.recipes);
+        }
+      catch (error) {
         console.log(error);
       }
     }

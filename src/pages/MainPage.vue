@@ -4,21 +4,14 @@
     <RecipePreviewList title="Random Recipes" class="RandomRecipes center" page_type="random"></RecipePreviewList>
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
     {{ $root.store.username }}
-    <!-- NEED TO RETURN THIS - BUT TO DEAL WITH THE PROPS PARAM WE NEED TO PASS TO CHILD COMPONENT -->
-    <!-- <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
-    ></RecipePreviewList> -->
+    <RecipePreviewList v-if="$root.store.username" title="Last Viewed Recipes" class="recentleyViewed center" page_type="recentleyViewed"
+      
+    ></RecipePreviewList>
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
       Centeredasdasdad
-    </div>-->
+    </div> -->
   </div>
 </template>
 

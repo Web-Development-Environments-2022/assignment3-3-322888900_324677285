@@ -1,12 +1,6 @@
 <template>
   <div class="container">
-    <b-alert
-      class="mt-2"
-      v-if="addedTofav"
-      variant="warning"
-      dismissible
-      show
-    >
+    <b-alert class="mt-2" v-if="addedTofav" variant="warning" dismissible show>
       Added to favorites
     </b-alert>
     <div v-if="recipe">
@@ -40,17 +34,16 @@
             </ol>
           </div>
         </div>
-      
       </div>
-    
-<b-form @submit.prevent="like">
-      <b-button
-        type="submit"
-        variant="primary"
-        style="width:100px;display:block;"
-        class="mx-auto w-100"
-        >Add To Favourites</b-button
-      >
+
+      <b-form @submit.prevent="like">
+        <b-button
+          type="submit"
+          variant="primary"
+          style="width:100px;display:block;"
+          class="mx-auto w-100"
+          >Add To Favourites</b-button
+        >
       </b-form>
     </div>
   </div>
@@ -61,27 +54,58 @@ export default {
   data() {
     return {
       recipe: null,
-      addedTofav:false
+      addedTofav: false,
     };
   },
-    methods: {
+  methods: {
     async like() {
       try {
-        console.log("call like favourite ")
-        console.log(this.$route.params.recipeId)
+        console.log("call like favourite ");
+        console.log(this.$route.params.recipeId);
         const response = await this.axios.post(
-          "http://localhost:3000/user/favorites",{
+          "http://localhost:3000/user/favorites",
+          {
             // withCredentials: true,
-            recipe_id: this.$route.params.recipeId
-    },
-);
-    this.addedTofav=true
-    console.log(addedTofav)
+            recipe_id: this.$route.params.recipeId,
+          }
+        );
+        this.addedTofav = true;
+        console.log(addedTofav);
       } catch (error) {
         console.log(error);
       }
+    },
+  },
+
+  async mounted() {
+    // try {
+    //   let response;
+    //   response = this.$route.params.response;
+    try {
+      console.log("clocked on a recipe");
+      console.log(this.$route.params.recipeId);
+      const response = await this.axios.post(
+        "http://localhost:3000/user/lastSeenRecipes",
+        {
+          recipe_id: this.$route.params.recipeId
+        }
+      );
+
+      console.log("response.status", response.status);
+      if (response.status !== 200) this.$router.replace("/NotFound");
+    } catch (error) {
+      console.log("error.response.status", error.response.status);
+      this.$router.replace("/NotFound");
+      return;
+
+      // } catch (error) {
+      //   console.log("error.response.status", error.response.status);
+      //   this.$router.replace("/NotFound");
+      //   return;
+      // }
     }
   },
+
   async created() {
     try {
       let response;
@@ -91,11 +115,11 @@ export default {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           // this.$root.store.server_domain + "/recipes/info",
-          "http://localhost:3000/recipes/fullRecipe/" + this.$route.params.recipeId 
+          "http://localhost:3000/recipes/fullRecipe/" +
+            this.$route.params.recipeId
           // process.env.VUE_APP_ROOT_API + "/recipes/fullRecipe",
         );
 
-        console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log("error.response.status", error.response.status);
@@ -103,7 +127,6 @@ export default {
         return;
       }
 
-      console.log(response.data)
       let {
         analyzedInstructions,
         instructions,
@@ -111,7 +134,7 @@ export default {
         popularity,
         readyInMinutes,
         image,
-        title
+        title,
       } = response.data;
 
       let _instructions = analyzedInstructions
@@ -129,45 +152,16 @@ export default {
         popularity,
         readyInMinutes,
         image,
-        title
+        title,
       };
-    //localStorage.getItem("lastRecipes").recipe1= this.$route.params.recipeId
-    this.recipe = _recipe;
+      //localStorage.getItem("lastRecipes").recipe1= this.$route.params.recipeId
+      this.recipe = _recipe;
+      
     } catch (error) {
       console.log(error);
     }
-    await addLastSeenRecipes()
   },
-  async addLastSeenRecipes(){
-      try {
-      let response;
-      response = this.$route.params.response;
-      try {
-        const response = await this.axios.post(
-          "http://localhost:3000/user/lastSeenRecipes", {
-        
-           recipe :this.recipe,
-    }
-  );
-
-        console.log("response.status", response.status);
-        if (response.status !== 200) this.$router.replace("/NotFound");
-      } catch (error) {
-      console.log("error.response.status", error.response.status);
-      this.$router.replace("/NotFound");
-       return;
-      }
-  }
-    catch (error) {
-        console.log("error.response.status", error.response.status);
-        this.$router.replace("/NotFound");
-        return;   }
-}
 };
-
-
-
-
 </script>
 
 <style scoped>

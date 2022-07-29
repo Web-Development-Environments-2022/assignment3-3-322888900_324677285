@@ -20,55 +20,46 @@ export default {
   props: {
     page_type: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    RecipePreview
+    RecipePreview,
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
     };
   },
-  //NEED TO FIND BETTER WAY TO DEAL WITH THE PROPS ISSUE - FOR NOW ITS OK
-  mounted: function () {
-    let vm = this;      
-    vm.$nextTick(function () {      
-      console.log(this._props.page_type)
-      if(this._props.page_type == "random")
-        this.updateRandomRecipes();
-      else if(this._props.page_type == "favorites"){
-        this.updateFavoritesRecipes(); 
-        console.log("hereeee")
-      }
-      else if(this._props.page_type == "lastThree")
-        this.updateLastSeenRecipes(); //NOT IMPLEMENTED YET  
-      else if(this._props.page_type == "myRecipes")
-        this.updateMyRecipes(); //NOT IMPLEMENTED YET
-      else if(this._props.page_type == "recentleyViewed")
-        this.updateLastSeenRecipes(); //NOT IMPLEMNETED YET
+  mounted: function() {
+    let vm = this;
+    vm.$nextTick(function() {
+      console.log("page type is:")
+      console.log(this._props.page_type);
+      if (this._props.page_type == "random") this.updateRandomRecipes();
+      else if (this._props.page_type == "favorites") this.updateFavoritesRecipes();
+      else if (this._props.page_type == "myRecipes") this.updateMyRecipes();  //NOT IMPLEMENTED YET
+      else if (this._props.page_type == "recentleyViewed") this.updateLastSeenRecipes();
     });
   },
   methods: {
-    async  updateFamilyRecipes(){
- try {
+    async updateFamilyRecipes() {
+      try {
         const response = await this.axios.post(
-          "http://localhost:3000/user/family", {
-        
-           recipe_id :this.recipeName,
-           recipe_owner : this.recipeOwner,
-           when_to_cook : this.whenToCook,
-           ingredients : this.ingredients,
-           instructions : this.instructions,
-           photos : this.photos
-        
-    }
-  );
+          "http://localhost:3000/user/family",
+          {
+            recipe_id: this.recipeName,
+            recipe_owner: this.recipeOwner,
+            when_to_cook: this.whenToCook,
+            ingredients: this.ingredients,
+            instructions: this.instructions,
+            photos: this.photos,
+          }
+        );
 
         // console.log(response);
         const recipes = response.data;
-        console.log(response.data)
+        console.log(response.data);
         this.recipes = [];
         this.recipes.push(...recipes);
         // console.log(this.recipes);
@@ -80,13 +71,16 @@ export default {
       try {
         const response = await this.axios.get(
           // process.env.VUE_APP_ROOT_API + "/recipes/random",
-          "http://localhost:3000/recipes/random", {withCredentials: false}
+          "http://localhost:3000/recipes/random",
+          { withCredentials: false }
           // this.$root.store.server_domain
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
         // console.log(response);
         const recipes = response.data.recipes;
+        console.log("Random recipes are:")
+        console.log(recipes)
         this.recipes = [];
         this.recipes.push(...recipes);
         // console.log(this.recipes);
@@ -101,19 +95,18 @@ export default {
         const response = await this.axios.get(
           // process.env.VUE_APP_ROOT_API + "/recipes/random",
           "http://localhost:3000/user/favorites"
-   
         );
-        console.log(response.data)
+        console.log(response.data);
         const recipes = response.data;
         this.recipes = [];
-        this.recipes.push(...recipes); 
+        this.recipes.push(...recipes);
       } catch (error) {
         console.log(error);
       }
     },
 
     // not finished yet - throws 401
-    async updateLastSeenRecipes(){
+    async updateLastSeenRecipes() {
       try {
         const response = await this.axios.get(
           // process.env.VUE_APP_ROOT_API + "/recipes/random",
@@ -122,20 +115,18 @@ export default {
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
-        // NEED TO CHECK IT! - I THINK WE RETURN ONLY RECIPES ID'S... CHECK IT
-        console.log(response);
+        // NOT WORKING VERY GOOD YET - NEED TO FINISH
+        console.log("last seen recipes:");
+        console.log(response.data);
         this.recipes = [];
         this.recipes.push(response.data.FirstRecipe);
         this.recipes.push(response.data.SecondRecipe);
         this.recipes.push(response.data.ThirdRecipe);
-        console.log("THREE RECIPES:"+this.recipes);
-        }
-      catch (error) {
+      } catch (error) {
         console.log(error);
       }
-    }
-    
-  }
+    },
+  },
 };
 </script>
 

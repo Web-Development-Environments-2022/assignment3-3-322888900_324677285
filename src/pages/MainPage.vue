@@ -1,10 +1,20 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Random Recipes" class="RandomRecipes center" page_type="random"></RecipePreviewList>
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
+    <RecipePreviewList
+      title="Random Recipes"
+      class="RandomRecipes center"
+      page_type="random"
+    ></RecipePreviewList>
+    <router-link v-if="!$root.store.username" to="/login" tag="button"
+      >You need to Login to vue this</router-link
+    >
     {{ $root.store.username }}
-    <RecipePreviewList title="Last View Recipes" class="RandomRecipes center" page_type="lastThree"></RecipePreviewList>
+    <RecipePreviewList
+      title="Last View Recipes"
+      class="lastSeenRecipes center"
+      page_type="lastThree"
+    ></RecipePreviewList>
 
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
@@ -18,13 +28,13 @@
 import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
   },
   data() {
     return {
-      page_type: "main"
+      page_type: "main",
     };
-  }
+  },
 };
 </script>
 

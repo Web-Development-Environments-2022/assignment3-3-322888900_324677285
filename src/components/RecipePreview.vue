@@ -21,21 +21,20 @@
 <script>
 export default {
   //mounted() {
-   // this.axios.get(this.recipe.image, {withCredentials: false}).then((i) => {
-    //  this.image_load = true;
-    //});
+  // this.axios.get(this.recipe.image, {withCredentials: false}).then((i) => {
+  //  this.image_load = true;
+  //});
   //},
   data() {
     return {
-    //  image_load: false
+      //  image_load: false
     };
   },
   props: {
     recipe: {
       type: Object,
-      required: true
-    }
-
+      required: true,
+    },
     // id: {
     //   type: Number,
     //   required: true

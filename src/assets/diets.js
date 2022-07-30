@@ -1,13 +1,13 @@
 export default [
-    "Gluten Free",
-    "Ketogenic",
-    "Vegetarian",
-    "Lacto-Vegetarian",
-    "Ovo-Vegetarian",
-    "Vegan",
-    "Pescetarian",
-    "Paleo",
-    "Primal",
-    "Low FODMAP",
-    "Whole30"
+  {"name":"Gluten Free"},
+  {"name": "Ketogenic"},
+  {"name": "Vegetarian"},
+  {"name": "Lacto-Vegetarian"},
+  {"name":"Ovo-Vegetarian"},
+  {"name":"Vegan"},
+  {"name":"Pescetarian"},
+  {"name":"Paleo"},
+  {"name":"Primal"},
+  {"name":"Low FODMAP"},
+  {"name":"Whole30"}
 ]

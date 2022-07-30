@@ -1,14 +1,6 @@
 <template>
   <div id="app">
     <div id="nav">
-             <!-- <b-button
-         @click="AddRecipe"
-        variant="primary"
-        style="width:250px;"
-        class="ml-5 w-75"
-        v-if="$root.store.username" 
-        >Add Recipe</b-button
-      > -->
       <router-link :to="{ name: 'main' }">Main page</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <router-link :to="{ name: 'about' }">About</router-link>|
@@ -18,18 +10,17 @@
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else>
-        <span>
-          Welcome:{{ $root.store.username }}|
-          <NewRecipeModal ></NewRecipeModal>|
           <button @click="Logout">Logout</button>
-          <b-nav-item-dropdown v-if="$root.store.username" text="Personal" center>
+          Welcome:{{ $root.store.username }}|
+          <b-nav-item-dropdown v-if="$root.store.username" text="Personal">
             <b-dropdown-item :to="{ name: 'favorites' }">favorites</b-dropdown-item>
             <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
             <b-dropdown-item :to="{ name: 'myRecipes' }">my recipes</b-dropdown-item>
           </b-nav-item-dropdown>
-        </span>
       </span>
-      <!-- <router-link :to="{}" v-if= "!$root.store.username">       </router-link> 
+          <NewRecipeModal ></NewRecipeModal>|
+
+<!-- <router-link :to="{}" v-if= "!$root.store.username">       </router-link> 
       <button @click="NewRecipes">New Recipes</button>-->
    
     </div>

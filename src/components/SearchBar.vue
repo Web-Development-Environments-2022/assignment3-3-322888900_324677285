@@ -25,7 +25,7 @@
     <label for="15">15</label>
 </div>
     </b-form>
-<MyMultipleSelect></MyMultipleSelect>
+<MyMultipleSelect  @TypeOfElements="saveDiets" :TypeOfElements="diets_str"></MyMultipleSelect>
 
 
 <b-form-select
@@ -108,11 +108,14 @@ export default{
       recipes: [],
       search: "",
       cuisine:"",
-      diet:"",
+      diet:[],
       intolerances:"",
       cuisineAsset: [{ value: null, text: "", disabled: true }],
       intolerancesAsset: [{ value: null, text: "", disabled: true }],
-      dietsAsset: [{ value: null, text: "", disabled: true }]
+      dietsAsset: [{ value: null, text: "", disabled: true }],
+      cuisine_str:"cuisine",
+      intolerances_str:"intolerances",
+      diets_str:"diets",
     };
   },
    mounted() {
@@ -122,6 +125,9 @@ export default{
 
   },
   methods: {
+    saveDiets(value){
+      this.diet=value
+    },
     sortRecipesTime(){//need to be checked
         this.recipes.sort((a, b) => parseFloat(a.readyInMinutes) - parseFloat(b.readyInMinutes));
     },

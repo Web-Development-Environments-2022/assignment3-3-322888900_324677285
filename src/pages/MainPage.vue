@@ -9,11 +9,12 @@
     <router-link v-if="!$root.store.username" to="/login" tag="button"
       >You need to Login to vue this</router-link
     >
-    {{ $root.store.username }}
-    <RecipePreviewList
+    <h1> You watched:</h1>
+    <!-- {{ $root.store.username }} -->
+    <RecipePreviewList v-if="$root.store.username"
       title="Last View Recipes"
       class="lastSeenRecipes center"
-      page_type="lastThree"
+      page_type="recentleyViewed"
     ></RecipePreviewList>
 
     <!-- <div

@@ -1,15 +1,17 @@
 <template>
   <div class="container">
     <h1 class="title">Favorite Recipes</h1>
-    <RecipePreviewList title="Favorite Recipes" class="RandomRecipes center" page_type="favorites" />
+    <RecipePreviewList title="Favorite Recipes" class="FavoriteRecipes center" page_type="favorites" />
   </div>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+
 export default {
+  name:"FavoritesViewPage",
   components: {
-    RecipePreviewList
+    RecipePreviewList,
   },
   data() {
     return {

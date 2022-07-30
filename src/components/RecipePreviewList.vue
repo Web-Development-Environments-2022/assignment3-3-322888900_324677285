@@ -115,13 +115,15 @@ export default {
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
-        // NOT WORKING VERY GOOD YET - NEED TO FINISH
-        console.log("last seen recipes:");
-        console.log(response.data);
+        const recipes = [response.data.FirstRecipe, response.data.SecondRecipe, response.data.ThirdRecipe]
         this.recipes = [];
-        this.recipes.push(response.data.FirstRecipe);
-        this.recipes.push(response.data.SecondRecipe);
-        this.recipes.push(response.data.ThirdRecipe);
+        for(let i = 0; i<recipes.length; i++){
+          if(recipes[i] !== null){
+            this.recipes.push(recipes[i])
+          }
+        }
+        console.log("last seen recipes:");
+        console.log(this.recipes)
       } catch (error) {
         console.log(error);
       }

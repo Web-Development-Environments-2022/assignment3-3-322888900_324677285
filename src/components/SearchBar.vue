@@ -25,6 +25,9 @@
     <label for="15">15</label>
 </div>
     </b-form>
+<MyMultipleSelect></MyMultipleSelect>
+
+
 <b-form-select
           id="cuisine"
           v-model="cuisine"
@@ -88,11 +91,12 @@
 import intolerancesAsset from "../assets/intolerances";
 import dietsAsset from "../assets/diets";
 import cuisineAsset from "../assets/cuisine";
-
+import MyMultipleSelect from "./MyMultipleSelect.vue"
 import RecipePreview from "./RecipePreview.vue";
 export default{
      components: {
-    RecipePreview
+    RecipePreview,
+    MyMultipleSelect
   },
     data() {
     return {

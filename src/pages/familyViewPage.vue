@@ -2,16 +2,16 @@
   <div class="container">
     <h1 class="title">Family Recipes</h1>
     <FamilyRecipeModal></FamilyRecipeModal>
-    <RecipePreviewList title="Family Recipes" class="FamilyRecipes center" page_type="family" />
+    <FamilyRecipePreviewList title="Family Recipes" class="FamilyRecipes center"/>
   </div>
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+import FamilyRecipePreviewList from "../components/FamilyRecipePreviewList";
 import FamilyRecipeModal from "../components/FamilyRecipeModal.vue";
 export default {
   components: {
-    RecipePreviewList,
+    FamilyRecipePreviewList,
     FamilyRecipeModal
   }
 };

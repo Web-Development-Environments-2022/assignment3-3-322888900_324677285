@@ -34,39 +34,17 @@ export default {
   mounted: function() {
     let vm = this;
     vm.$nextTick(function() {
-      console.log("page type is:")
+      console.log("page type is:");
       console.log(this._props.page_type);
       if (this._props.page_type == "random") this.updateRandomRecipes();
-      else if (this._props.page_type == "favorites") this.updateFavoritesRecipes();
-      else if (this._props.page_type == "myRecipes") this.updateMyRecipes();  //NOT IMPLEMENTED YET
-      else if (this._props.page_type == "recentleyViewed") this.updateLastSeenRecipes();
+      else if (this._props.page_type == "favorites")
+        this.updateFavoritesRecipes();
+      else if (this._props.page_type == "myRecipes") this.updateMyRecipes();
+      else if (this._props.page_type == "recentleyViewed")
+        this.updateLastSeenRecipes();
     });
   },
   methods: {
-    async updateFamilyRecipes() {
-      try {
-        const response = await this.axios.post(
-          "http://localhost:3000/user/family",
-          {
-            recipe_id: this.recipeName,
-            recipe_owner: this.recipeOwner,
-            when_to_cook: this.whenToCook,
-            ingredients: this.ingredients,
-            instructions: this.instructions,
-            photos: this.photos,
-          }
-        );
-
-        // console.log(response);
-        const recipes = response.data;
-        console.log(response.data);
-        this.recipes = [];
-        this.recipes.push(...recipes);
-        // console.log(this.recipes);
-      } catch (error) {
-        console.log(error);
-      }
-    },
     async updateRandomRecipes() {
       try {
         const response = await this.axios.get(
@@ -79,8 +57,8 @@ export default {
 
         // console.log(response);
         const recipes = response.data.recipes;
-        console.log("Random recipes are:")
-        console.log(recipes)
+        console.log("Random recipes are:");
+        console.log(recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
         // console.log(this.recipes);
@@ -115,15 +93,33 @@ export default {
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
-        const recipes = [response.data.FirstRecipe, response.data.SecondRecipe, response.data.ThirdRecipe]
+        const recipes = [
+          response.data.FirstRecipe,
+          response.data.SecondRecipe,
+          response.data.ThirdRecipe,
+        ];
         this.recipes = [];
-        for(let i = 0; i<recipes.length; i++){
-          if(recipes[i] !== null){
-            this.recipes.push(recipes[i])
+        for (let i = 0; i < recipes.length; i++) {
+          if (recipes[i] !== null) {
+            this.recipes.push(recipes[i]);
           }
         }
         console.log("last seen recipes:");
-        console.log(this.recipes)
+        console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async updateMyRecipes() {
+      try {
+        const response = await this.axios.get(
+          // process.env.VUE_APP_ROOT_API + "/recipes/random",
+          "http://localhost:3000/user/myRecipes"
+          // this.$root.store.server_domain
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        // the server side is not implemented yet
       } catch (error) {
         console.log(error);
       }

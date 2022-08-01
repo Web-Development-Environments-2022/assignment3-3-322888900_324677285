@@ -18,11 +18,7 @@
             <b-dropdown-item :to="{ name: 'myRecipes' }">my recipes</b-dropdown-item>
           </b-nav-item-dropdown>
       </span>
-          <NewRecipeModal ></NewRecipeModal>|
-
-<!-- <router-link :to="{}" v-if= "!$root.store.username">       </router-link> 
-      <button @click="NewRecipes">New Recipes</button>-->
-   
+          <NewRecipeModal ></NewRecipeModal>|   
     </div>
     <router-view />
   </div>

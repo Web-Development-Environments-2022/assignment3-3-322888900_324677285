@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-button v-b-modal.new-rec-modal>Enter New Recipe</b-button>
+    <b-button v-if="$root.store.username" v-b-modal.new-rec-modal>Enter New Recipe</b-button>
     <b-modal id="new-rec-modal" title="New Recipe" @ok="submitRecipe">
       <p class="my-4">Hello, please enter details of your new recipe</p>
       <div class="form-group">

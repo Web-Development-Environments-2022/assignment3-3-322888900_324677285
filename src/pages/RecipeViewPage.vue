@@ -82,7 +82,6 @@ export default {
     //   let response;
     //   response = this.$route.params.response;
     try {
-      console.log("clocked on a recipe");
       console.log(this.$route.params.recipeId);
       const response = await this.axios.post(
         "http://localhost:3000/user/lastSeenRecipes",

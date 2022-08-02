@@ -22,6 +22,16 @@ export default {
       type: String,
       required: true,
     },
+    favorite_recipes: {
+      type: Object,
+      required: false,
+      default: () => undefined,
+    },
+    recipe_index_to_show: {
+      type: Number,
+      required: false,
+      default: () => undefined,
+    },
   },
   components: {
     RecipePreview,
@@ -67,19 +77,14 @@ export default {
       }
     },
 
-    //NOT WORKING GOOD CURRENTLY - NEED TO CHECK IT
+    //NOT FINISHED YET - NEED TO CHECK IT
     async updateFavoritesRecipes() {
-      try {
-        const response = await this.axios.get(
-          // process.env.VUE_APP_ROOT_API + "/recipes/random",
-          "http://localhost:3000/user/favorites"
-        );
-        console.log(response.data);
-        const recipes = response.data;
-        this.recipes = [];
-        this.recipes.push(...recipes);
-      } catch (error) {
-        console.log(error);
+      let recipe_index = this._props.recipe_index_to_show;
+      for (var i = recipe_index; i < recipe_index + 3; i++) {
+        if (i == this._props.favorite_recipes.length) {
+          break;
+        }
+        this.recipes.push(this._props.favorite_recipes[i]);
       }
     },
 

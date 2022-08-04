@@ -27,22 +27,14 @@
     </b-form>
 <MyMultipleSelect  @TypeOfElements="saveDiets" :TypeOfElements="diets_str"></MyMultipleSelect>
 
+<MyMultipleSelect  @TypeOfElements="saveIntolerances" :TypeOfElements="intolerances_str"></MyMultipleSelect>
 
 <b-form-select
           id="cuisine"
           v-model="cuisine"
           :options="cuisineAsset"
         ></b-form-select>
-<b-form-select
-          id="diet"
-          v-model="diet"
-          :options="dietsAsset"
-        ></b-form-select>
-<b-form-select
-          id="intolerances"
-          v-model="intolerances"
-          :options="intolerancesAsset"
-        ></b-form-select>
+
 
 
 <b-form @submit.prevent="searchRecipes">
@@ -109,7 +101,7 @@ export default{
       search: "",
       cuisine:"",
       diet:[],
-      intolerances:"",
+      intolerances:[],
       cuisineAsset: [{ value: null, text: "", disabled: true }],
       intolerancesAsset: [{ value: null, text: "", disabled: true }],
       dietsAsset: [{ value: null, text: "", disabled: true }],
@@ -126,7 +118,23 @@ export default{
   },
   methods: {
     saveDiets(value){
-      this.diet=value
+      //console.log("added")
+      this.diet=[]
+      value.forEach(element => {
+        this.diet.push(element.name)
+      });
+      //this.diet=value
+      console.log("diets:"+this.diet)
+    },
+    saveIntolerances(value){
+      //console.log("added")
+      this.intolerances=[]
+      value.forEach(element => {
+        this.intolerances.push(element.name)
+      });
+      //this.intolerances=value
+      console.log("intolerances:"+this.intolerances)
+
     },
     sortRecipesTime(){//need to be checked
         this.recipes.sort((a, b) => parseFloat(a.readyInMinutes) - parseFloat(b.readyInMinutes));
@@ -135,6 +143,7 @@ export default{
         this.recipes.sort((a, b) => parseFloat(a.popularity) - parseFloat(b.popularity)); 
     },
     async searchRecipes() {
+      console.log(this.diet)
       try {
         console.log("call function search")
         const response = await this.axios.get(

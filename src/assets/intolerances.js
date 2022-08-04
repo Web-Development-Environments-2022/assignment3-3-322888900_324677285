@@ -1,14 +1,14 @@
 export default [
-    "Dairy",
-    "Egg",
-    "Gluten",
-    "Grain",
-    "Peanut",
-    "Seafood",
-    "Sesame",
-    "Shellfish",
-    "Soy",
-    "Sulfite",
-    "Tree Nut",
-    "Wheat"
+    {"name":"Dairy"},
+    {"name":"Egg"},
+    {"name":"Gluten"},
+    {"name":"Grain"},
+    {"name":"Peanut"},
+    {"name":"Seafood"},
+    {"name":"Sesame"},
+    {"name":"Shellfish"},
+    {"name":"Soy"},
+    {"name":"Sulfite"},
+    {"name":"Tree Nut"},
+    {"name":"Wheat"}
 ]

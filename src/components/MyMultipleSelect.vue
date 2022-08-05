@@ -1,9 +1,9 @@
 <template>
 <div>
-  <label class="typo__label">Tagging</label>
+  <label>{{TypeOfElements}}</label>
   <multiselect v-model="value" 
   tag-placeholder="Add this as new tag" 
-  placeholder="Search or add a tag" 
+  v-bind:placeholder=TypeOfElements
   label="name" 
   track-by="name" 
   :options="options" 
@@ -11,7 +11,6 @@
   :taggable="true" 
   @input="onChange" 
   ></multiselect>
-  <pre class="language-json"><code>{{ value  }}</code></pre>
 </div>
 </template>
 <script>src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"
@@ -57,12 +56,11 @@ export default {
       for(let i=0;i<this.value.length;i++){
         newvalue.push(this.value[i].name)
       }
-      console.log(newvalue)
         if(this._props.TypeOfElements==="diets"){
-      this.$emit("saveDiets",newvalue)
+      this.$emit("TypeOfElements",newvalue)
       }
     else if(this._props.TypeOfElements==="intolerances"){
-      this.$emit("saveIntolerances",newvalue)
+      this.$emit("TypeOfElements",newvalue)
       }
     }
 

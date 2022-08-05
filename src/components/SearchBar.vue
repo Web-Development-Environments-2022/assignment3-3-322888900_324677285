@@ -28,11 +28,12 @@
 <MyMultipleSelect  @TypeOfElements="saveDiets" :TypeOfElements="diets_str"></MyMultipleSelect>
 
 <MyMultipleSelect  @TypeOfElements="saveDiets" :TypeOfElements="intolerances_str"></MyMultipleSelect>
-
+<label>cuisine</label>
 <b-form-select
           id="cuisine"
           v-model="cuisine"
           :options="cuisineAsset"
+          placeholder="cuisine"
         ></b-form-select>
 
 
@@ -100,8 +101,8 @@ export default{
       recipes: [],
       search: "",
       cuisine:"",
-      diet:[],
-      intolerances:[],
+      diet:"",
+      intolerances:"",
       cuisineAsset: [{ value: null, text: "", disabled: true }],
       intolerancesAsset: [{ value: null, text: "", disabled: true }],
       dietsAsset: [{ value: null, text: "", disabled: true }],
@@ -118,21 +119,18 @@ export default{
   },
   methods: {
     saveDiets(value){
-      //console.log("added")
-      this.diet=[]
+      this.diet=""
       value.forEach(element => {
-        this.diet.push(element.name)
+        this.diet+=element+","
       });
-      //this.diet=value
-      console.log("diets:"+this.diet)
+      this.diet.slice(0, -1);
     },
     saveIntolerances(value){
-      //console.log("added")
-      this.intolerances=[]
+      this.intolerances=""
       value.forEach(element => {
-        this.intolerances.push(element.name)
+        this.intolerances+=element+","
       });
-      //this.intolerances=value
+      this.intolerances.slice(0, -1);
       console.log("intolerances:"+this.intolerances)
 
     },

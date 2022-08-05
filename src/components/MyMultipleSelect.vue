@@ -9,11 +9,15 @@
   :options="options" 
   :multiple="true" 
   :taggable="true" 
-  @tag.prevent="addTag"></multiselect>
+  @input="onChange" 
+  ></multiselect>
   <pre class="language-json"><code>{{ value  }}</code></pre>
 </div>
 </template>
+<script>src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"
+</script>
 <script>
+
 import Multiselect from 'vue-multiselect'
 import dietsAsset from "../assets/diets";
 import intolerancesAsset from "../assets/intolerances";
@@ -47,26 +51,25 @@ export default {
       }
   },
   methods: {
-    addTag (newTag) {
-      console.log("laaa")
-      const tag = {
-        name: newTag,
-        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+   
+    onChange(){
+      let newvalue=[]
+      for(let i=0;i<this.value.length;i++){
+        newvalue.push(this.value[i].name)
       }
-      this.options.push(tag)
-      this.value.push(tag)
+      console.log(newvalue)
         if(this._props.TypeOfElements==="diets"){
-      $emit("saveDiets",value)
+      this.$emit("saveDiets",newvalue)
       }
     else if(this._props.TypeOfElements==="intolerances"){
-      $emit("saveIntolerances",value)
+      this.$emit("saveIntolerances",newvalue)
       }
     }
+
   }
   }
 
   
-
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

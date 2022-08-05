@@ -27,7 +27,7 @@
     </b-form>
 <MyMultipleSelect  @TypeOfElements="saveDiets" :TypeOfElements="diets_str"></MyMultipleSelect>
 
-<MyMultipleSelect  @TypeOfElements="saveIntolerances" :TypeOfElements="intolerances_str"></MyMultipleSelect>
+<MyMultipleSelect  @TypeOfElements="saveDiets" :TypeOfElements="intolerances_str"></MyMultipleSelect>
 
 <b-form-select
           id="cuisine"

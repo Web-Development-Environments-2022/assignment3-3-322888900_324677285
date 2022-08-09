@@ -20,45 +20,12 @@
 
 <script>
 export default {
-  //mounted() {
-  // this.axios.get(this.recipe.image, {withCredentials: false}).then((i) => {
-  //  this.image_load = true;
-  //});
-  //},
-  data() {
-    return {
-      //  image_load: false
-    };
-  },
   props: {
     recipe: {
       type: Object,
       required: true,
     },
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
-  }
+  },
 };
 </script>
 

@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <b-form @submit.prevent="like">
+      <b-form v-if="$root.store.username" @submit.prevent="like">
         <b-button
           type="submit"
           variant="primary"
@@ -70,7 +70,7 @@ export default {
           }
         );
         this.addedTofav = true;
-        console.log(addedTofav);
+        console.log(this.addedTofav);
       } catch (error) {
         console.log(error);
       }
@@ -96,12 +96,6 @@ export default {
       console.log("error.response.status", error.response.status);
       this.$router.replace("/NotFound");
       return;
-
-      // } catch (error) {
-      //   console.log("error.response.status", error.response.status);
-      //   this.$router.replace("/NotFound");
-      //   return;
-      // }
     }
   },
 

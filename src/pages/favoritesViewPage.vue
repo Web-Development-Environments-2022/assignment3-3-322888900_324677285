@@ -1,13 +1,22 @@
 <template>
   <div class="container">
     <h1 class="title">Favorite Recipes</h1>
-    <RecipePreviewList
-      title="Favorite Recipes"
-      class="FavoriteRecipes center"
-      page_type="favorites"
-      :favorite_recipes="recipes"
-      :recipe_index_to_show="recipe_index_to_show"
-    />
+    <b-container>
+      <!-- ALSO A PROBLEM - THE TITLE IS UNDEFINED - SAME ISSUE AS PROPS -->
+      <!-- <h3>
+      {{ title }}:
+      <slot></slot>
+    </h3> -->
+    <!-- THERE'S A PROBLEM TO SHOW LESS THEN 3 RECIPES (IT SHOWS THE PREVIOUSE RECIPES) -->
+      <b-row> 
+        <b-col v-for="(n,i) in 3" :key="i">
+          <RecipePreview
+            class="recipePreview"
+            :recipe="recipes[recipe_index_to_show + i]"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-end">
         <li class="page-item disabled">
@@ -15,8 +24,10 @@
             >Previous</a
           >
         </li>
-        <li v-for="index in 10" :key="index">
-          <button class="page-link" @click="switch_page(index)">{{ index }}</button>
+        <li v-for="(n,i) in number_of_pages" :key="i">
+          <button class="page-link" @click="switch_page(i)">
+            {{ n }}
+          </button>
           <!-- <a class="page-link" href="#">{{ index }}</a> -->
         </li>
         <li class="page-item">
@@ -30,12 +41,12 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+import RecipePreview from "../components/RecipePreview";
 
 export default {
   name: "FavoritesViewPage",
   components: {
-    RecipePreviewList,
+    RecipePreview,
   },
   data() {
     return {
@@ -43,6 +54,7 @@ export default {
       recipes: [],
       recipe_index_to_show: 0,
       number_of_pages: 0,
+      current_page: 0,
     };
   },
   mounted: function() {
@@ -59,14 +71,25 @@ export default {
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
+        let reminder = this.recipes.length % 3
         this.number_of_pages = Math.floor(this.recipes.length / 3);
+        if (reminder !== 0){
+          this.number_of_pages = this.number_of_pages + 1
+        }
+        console.log("number of pages is:")
         console.log(this.number_of_pages);
       } catch (error) {
         console.log(error);
       }
     },
-    switch_page(index){
-      this.recipe_index_to_show = index*3
+    switch_page(index) {
+      console.log("button was clicked");
+      this.recipe_index_to_show = index * 3;
+      console.log("number is:");
+      console.log(this.recipe_index_to_show);
+      this.current_page = index
+      console.log("current page is:")
+      console.log(this.current_page)
     },
   },
 };

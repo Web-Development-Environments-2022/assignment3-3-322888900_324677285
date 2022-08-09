@@ -23,7 +23,7 @@ export default {
       required: true,
     },
     favorite_recipes: {
-      type: Object,
+      type: Array,
       required: false,
       default: () => undefined,
     },
@@ -47,8 +47,6 @@ export default {
       console.log("page type is:");
       console.log(this._props.page_type);
       if (this._props.page_type == "random") this.updateRandomRecipes();
-      else if (this._props.page_type == "favorites")
-        this.updateFavoritesRecipes();
       else if (this._props.page_type == "myRecipes") this.updateMyRecipes();
       else if (this._props.page_type == "recentleyViewed")
         this.updateLastSeenRecipes();
@@ -56,6 +54,7 @@ export default {
   },
   methods: {
     async updateRandomRecipes() {
+      console.log("Random recipes here~~~")
       try {
         const response = await this.axios.get(
           // process.env.VUE_APP_ROOT_API + "/recipes/random",
@@ -77,19 +76,8 @@ export default {
       }
     },
 
-    //NOT FINISHED YET - NEED TO CHECK IT
-    async updateFavoritesRecipes() {
-      let recipe_index = this._props.recipe_index_to_show;
-      for (var i = recipe_index; i < recipe_index + 3; i++) {
-        if (i == this._props.favorite_recipes.length) {
-          break;
-        }
-        this.recipes.push(this._props.favorite_recipes[i]);
-      }
-    },
-
-    // not finished yet - throws 401
     async updateLastSeenRecipes() {
+      console.log("last seen recipes")
       try {
         const response = await this.axios.get(
           // process.env.VUE_APP_ROOT_API + "/recipes/random",

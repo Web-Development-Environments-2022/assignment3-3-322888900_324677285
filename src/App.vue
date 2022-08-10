@@ -1,6 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
+     <b-nav pills>
+      <b-nav-item-dropdown v-if="$root.store.username" text="Personal">
+            <b-dropdown-item :to="{ name: 'favorites' }">favorites</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'myRecipes' }">my recipes</b-dropdown-item>
+      </b-nav-item-dropdown>
       <router-link :to="{ name: 'main' }">Main page</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <router-link :to="{ name: 'about' }">About</router-link>|
@@ -9,16 +15,11 @@
         <router-link :to="{ name: 'register' }">Register</router-link>|
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
-      <span v-else>
-          <button @click="Logout">Logout</button>
-          Welcome:{{ $root.store.username }}|
-          <b-nav-item-dropdown v-if="$root.store.username" text="Personal">
-            <b-dropdown-item :to="{ name: 'favorites' }">favorites</b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'myRecipes' }">my recipes</b-dropdown-item>
-          </b-nav-item-dropdown>
-      </span>
-          <NewRecipeModal ></NewRecipeModal>|   
+          <button @click="Logout"  v-if="$root.store.username">Logout</button>
+          Welcome:{{ $root.store.username }}
+        </b-nav>
+     
+          <NewRecipeModal ></NewRecipeModal>  
     </div>
     <router-view />
   </div>

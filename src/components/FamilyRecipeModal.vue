@@ -30,12 +30,6 @@
   </b-modal>
 </div>
 </template>
-<!-- recipeName: "",
-      recipeOwner:"",
-      whenToCook:"",
-      ingredients:"",
-      instructions:"",
-      photos:""  -->
 
 <script>
 import intolerancesAsset from "../assets/intolerances";

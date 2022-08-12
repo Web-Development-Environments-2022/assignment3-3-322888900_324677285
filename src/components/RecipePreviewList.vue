@@ -1,10 +1,5 @@
 <template>
   <b-container>
-    <!-- ALSO A PROBLEM - THE TITLE IS UNDEFINED - SAME ISSUE AS PROPS -->
-    <!-- <h3>
-      {{ title }}:
-      <slot></slot>
-    </h3> -->
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
@@ -21,16 +16,6 @@ export default {
     page_type: {
       type: String,
       required: true,
-    },
-    favorite_recipes: {
-      type: Array,
-      required: false,
-      default: () => undefined,
-    },
-    recipe_index_to_show: {
-      type: Number,
-      required: false,
-      default: () => undefined,
     },
   },
   components: {
@@ -54,7 +39,7 @@ export default {
   },
   methods: {
     async updateRandomRecipes() {
-      console.log("Random recipes here~~~")
+      console.log("Random recipes here~~~");
       try {
         const response = await this.axios.get(
           // process.env.VUE_APP_ROOT_API + "/recipes/random",
@@ -77,7 +62,7 @@ export default {
     },
 
     async updateLastSeenRecipes() {
-      console.log("last seen recipes")
+      console.log("last seen recipes");
       try {
         const response = await this.axios.get(
           // process.env.VUE_APP_ROOT_API + "/recipes/random",
@@ -112,7 +97,16 @@ export default {
           // this.$root.store.server_domain
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-        // the server side is not implemented yet
+        try {
+          console.log(response);
+          const recipes = response.data;
+          console.log(response.data);
+          this.recipes = [];
+          this.recipes.push(...recipes);
+          console.log(this.recipes);
+        } catch (error) {
+          console.log(error);
+        }
       } catch (error) {
         console.log(error);
       }

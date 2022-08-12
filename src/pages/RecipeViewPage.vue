@@ -77,28 +77,6 @@ export default {
     },
   },
 
-  async mounted() {
-    // try {
-    //   let response;
-    //   response = this.$route.params.response;
-    try {
-      console.log(this.$route.params.recipeId);
-      const response = await this.axios.post(
-        "http://localhost:3000/user/lastSeenRecipes",
-        {
-          recipe_id: this.$route.params.recipeId
-        }
-      );
-
-      console.log("response.status", response.status);
-      if (response.status !== 200) this.$router.replace("/NotFound");
-    } catch (error) {
-      console.log("error.response.status", error.response.status);
-      this.$router.replace("/NotFound");
-      return;
-    }
-  },
-
   async created() {
     try {
       let response;
@@ -147,7 +125,6 @@ export default {
         image,
         title,
       };
-      //localStorage.getItem("lastRecipes").recipe1= this.$route.params.recipeId
       this.recipe = _recipe;
       
     } catch (error) {
@@ -170,7 +147,4 @@ export default {
   margin-right: auto;
   width: 50%;
 }
-/* .recipe-header{
-
-} */
 </style>

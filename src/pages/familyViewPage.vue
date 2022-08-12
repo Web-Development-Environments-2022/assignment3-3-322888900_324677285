@@ -1,8 +1,13 @@
 <template>
-  <div class="container">
+<div>
+  <div v-if="$root.store.username" class="container">
     <h1 class="title">Family Recipes</h1>
     <FamilyRecipeModal></FamilyRecipeModal>
     <FamilyRecipePreviewList title="Family Recipes" class="FamilyRecipes center"/>
+  </div>
+  <div v-else-if="!$root.store.username">
+    <h1> Sorry, you have to log in to see this page</h1>
+  </div>
   </div>
 </template>
 

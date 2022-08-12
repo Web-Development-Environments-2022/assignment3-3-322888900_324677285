@@ -1,7 +1,16 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="My Recipes" class="RandomRecipes center" page_type="myRecipes" />
+  <div>
+    <div v-if="$root.store.username" class="container">
+      <h1 class="title">Your Recipes:</h1>
+      <RecipePreviewList
+        title="My Recipes"
+        class="RandomRecipes center"
+        page_type="myRecipes"
+      />
+    </div>
+    <div v-else-if="!$root.store.username">
+      <h1>Sorry, you have to log in to see this page</h1>
+    </div>
   </div>
 </template>
 
@@ -9,8 +18,8 @@
 import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   components: {
-    RecipePreviewList
-  }
+    RecipePreviewList,
+  },
 };
 </script>
 

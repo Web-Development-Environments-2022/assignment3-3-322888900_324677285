@@ -74,13 +74,6 @@
     </b-modal>
   </div>
 </template>
-// params.user_name = req.session.user_id // params.recipe_name =
-req.body.recipe_name // params.duration = req.body.duration // params.image =
-req.body.image // params.popularity = req.body.popularity // params.vegan =
-req.body.vegan // params.vegetarian = req.body.vegetarian // params.glutenFree =
-req.body.glutenFree // params.instructions = req.body.instructions //
-params.extendedIngredients = req.body.extendedIngredients // params.servings =
-req.body.servings
 
 <script>
 import intolerancesAsset from "../assets/intolerances";

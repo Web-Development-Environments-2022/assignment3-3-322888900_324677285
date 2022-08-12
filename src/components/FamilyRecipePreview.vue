@@ -12,8 +12,8 @@
         {{ recipe.recipe_id }}
       </div>
       <ul class="recipe-overview">
-        <li>{{ recipe.when_to_cook }} Best time to make it: </li>
-        <li>{{ recipe.owner_of_recipe }} Owner of this recipe</li>
+        <li> Best time to make it: {{ recipe.when_to_cook }} </li>
+        <li> Owner of this recipe: {{ recipe.owner_of_recipe }}</li>
       </ul>
     </div>
   </div>

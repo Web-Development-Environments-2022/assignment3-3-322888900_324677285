@@ -1,29 +1,92 @@
 <template>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-    <div class="recipe-body">
-      <img :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
+  <div>
+    <button @click="like" v-if="!addedTofav">
+      <b-icon-heart></b-icon-heart>
+    </button>
+    <button v-if="addedTofav">
+      <b-icon-heart-fill></b-icon-heart-fill>
+    </button>
+
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="recipe-preview"
+    >
+      <div class="recipe-body">
+        <img :src="recipe.image" class="recipe-image" />
       </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
-    </div>
-  </router-link>
+      <div class="recipe-footer">
+        <div :title="recipe.title" class="recipe-title">
+          {{ recipe.title }}
+        </div>
+        <ul class="recipe-overview">
+          <li>{{ recipe.readyInMinutes }} minutes</li>
+          <li>{{ recipe.aggregateLikes }} likes</li>
+        </ul>
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      addedTofav: false,
+    };
+  },
   props: {
     recipe: {
       type: Object,
       required: true,
+    },
+  },
+  mounted() {
+    this.checkInFavs;
+  },
+  methods: {
+    async checkInFavs() {
+      try {
+        if (this.addedTofav === false) {
+          console.log("check if in favourites ");
+          const response = await this.axios.get(
+            "http://localhost:3000/user/favorites",
+            { withCredentials: false }
+          );
+          console.log(response[0].id);
+          for (let i = 0; i < response.length; i++) {
+            if (this._props.recipe.id === response[i].id) {
+              this.addedTofav = true;
+            }
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async like() {//STILL TESTING IT
+      try {
+        const response = await this.axios.get(
+          "http://localhost:3000/user/favorites",
+          { withCredentials: false }
+        );
+        console.log(response[0].id);
+
+        //   console.log("recipe is in favorites: ")
+        //   console.log(this.addedTofav)
+        //   console.log("recipe id is:  ");
+        //   console.log(this._props.recipe.id)
+        //   const response = await this.axios.post(
+        //     "http://localhost:3000/user/favorites",
+        //     {
+        //       withCredentials: true,
+        //       recipe_id: this._props.recipe.id
+        //     }
+        //   );
+        //   this.addedTofav = true;
+        //   console.log(this.addedTofav);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

@@ -33,6 +33,7 @@ export default {
       console.log(this._props.page_type);
       if (this._props.page_type == "random") this.updateRandomRecipes();
       else if (this._props.page_type == "myRecipes") this.updateMyRecipes();
+      else if (this._props.page_type == "favorites") this.updateFavoritesRecipes();
       else if (this._props.page_type == "recentleyViewed")
         this.updateLastSeenRecipes();
     });
@@ -88,7 +89,20 @@ export default {
         console.log(error);
       }
     },
-
+    async updateFavoritesRecipes() {
+      try {
+        const response = await this.axios.get(
+          // process.env.VUE_APP_ROOT_API + "/recipes/random",
+          "http://localhost:3000/user/favorites"
+        );
+        console.log(response.data);
+        const recipes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async updateMyRecipes() {
       try {
         const response = await this.axios.get(

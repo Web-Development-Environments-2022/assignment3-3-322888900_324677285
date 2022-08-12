@@ -7,11 +7,6 @@ const routes = [
     name: "main",
     component: Main,
   },
-  //{//after log in page
-    //path: "/myPage",
-    //name: "myPage",
-   // component: () => import("./pages/myPage"),
- // },
   {
     path: "/search",
     name: "search",

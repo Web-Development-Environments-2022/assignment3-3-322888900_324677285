@@ -1,9 +1,12 @@
 import Vue from "vue";
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 axios.defaults.withCredentials = true
 
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);

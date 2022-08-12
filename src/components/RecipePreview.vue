@@ -12,7 +12,8 @@
       class="recipe-preview"
     >
       <div class="recipe-body">
-        <img :src="recipe.image" class="recipe-image" />
+        <b-img class="recipe-image" thumbnail fluid :src="recipe.image" alt="Image 1"></b-img>
+        <!-- <img :src="recipe.image" class="recipe-image" /> -->
       </div>
       <div class="recipe-footer">
         <div :title="recipe.title" class="recipe-title">
@@ -112,8 +113,8 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 98%;
-  height: auto;
+  width: auto;
+  height: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;

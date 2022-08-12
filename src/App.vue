@@ -1,25 +1,49 @@
 <template>
   <div id="app">
     <div id="nav">
-     <b-nav pills>
-      <b-nav-item-dropdown v-if="$root.store.username" text="Personal">
-            <b-dropdown-item :to="{ name: 'favorites' }">favorites</b-dropdown-item>
+      <!--LOGO -->
+      <b-navbar variant="faded" type="light">
+        <b-navbar-brand href="#">
+          <img
+            :src="require('@/assets/logo-ow.png')"
+            class="d-inline-block align-top "
+            alt="Kitten"
+          />
+        </b-navbar-brand>
+      </b-navbar>
+
+      <b-navbar toggleable="sm" type="light" variant="light">
+        <b-navbar-nav>
+          <b-nav-item :to="{ name: 'main' }">Main page</b-nav-item>|
+          <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>|
+          <b-nav-item :to="{ name: 'about' }">About</b-nav-item>|
+
+          <h5 v-if="!$root.store.username">Hello Guest!</h5>
+            <b-nav-item v-if="!$root.store.username" :to="{ name: 'register' }">Register</b-nav-item>|
+            <b-nav-item v-if="!$root.store.username" :to="{ name: 'login' }">Login</b-nav-item>|
+          <b-nav-item @click="Logout" v-if="$root.store.username">Logout</b-nav-item>
+          <h5 v-if="$root.store.username">
+            Welcome:{{ $root.store.username }}
+          </h5>
+
+          <!-- Navbar dropdowns -->
+          <b-nav-item-dropdown
+            v-if="$root.store.username"
+            text="Personal"
+            right
+          >
+            <b-dropdown-item :to="{ name: 'favorites' }"
+              >favorites</b-dropdown-item
+            >
             <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'myRecipes' }">my recipes</b-dropdown-item>
-      </b-nav-item-dropdown>
-      <router-link :to="{ name: 'main' }">Main page</router-link>|
-      <router-link :to="{ name: 'search' }">Search</router-link>|
-      <router-link :to="{ name: 'about' }">About</router-link>|
-      <span v-if="!$root.store.username">
-        Hello Guest!
-        <router-link :to="{ name: 'register' }">Register</router-link>|
-        <router-link :to="{ name: 'login' }">Login</router-link>|
-      </span>
-          <button @click="Logout"  v-if="$root.store.username">Logout</button>
-          Welcome:{{ $root.store.username }}
-        </b-nav>
-     
-          <NewRecipeModal ></NewRecipeModal>  
+            <b-dropdown-item :to="{ name: 'myRecipes' }"
+              >my recipes</b-dropdown-item
+            >
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+
+        <NewRecipeModal></NewRecipeModal>
+      </b-navbar>
     </div>
     <router-view />
   </div>
@@ -30,11 +54,10 @@ import NewRecipeModal from "./components/NewRecipeModal.vue";
 
 export default {
   name: "App",
-components: {
-    NewRecipeModal
-}, 
+  components: {
+    NewRecipeModal,
+  },
   methods: {
-  
     Logout() {
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
@@ -42,8 +65,8 @@ components: {
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

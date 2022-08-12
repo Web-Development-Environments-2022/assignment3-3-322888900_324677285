@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="$root.store.username" class="container">
+  <div class="container">
+    <div v-if="$root.store.username">
       <h1 class="title">Your Favorite Recipes:</h1>
       <RecipePreviewList
         class="Favorites center"
@@ -8,16 +8,18 @@
       />
     </div>
     <div v-else-if="!$root.store.username">
-      <h1>Sorry, you have to log in to see this page</h1>
+      <NotFoundPage></NotFoundPage>
     </div>
   </div>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import NotFoundPage from "../pages/NotFoundPage.vue";
 export default {
   components: {
     RecipePreviewList,
+    NotFoundPage,
   },
 };
 </script>

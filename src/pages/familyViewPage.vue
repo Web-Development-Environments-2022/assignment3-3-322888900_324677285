@@ -1,24 +1,29 @@
 <template>
-<div>
-  <div v-if="$root.store.username" class="container">
-    <h1 class="title">Family Recipes</h1>
-    <FamilyRecipeModal></FamilyRecipeModal>
-    <FamilyRecipePreviewList title="Family Recipes" class="FamilyRecipes center"/>
-  </div>
-  <div v-else-if="!$root.store.username">
-    <h1> Sorry, you have to log in to see this page</h1>
-  </div>
+  <div class="container">
+    <div v-if="$root.store.username">
+      <h1 class="title">Family Recipes</h1>
+      <FamilyRecipeModal></FamilyRecipeModal>
+      <FamilyRecipePreviewList
+        title="Family Recipes"
+        class="FamilyRecipes center"
+      />
+    </div>
+    <div v-else-if="!$root.store.username">
+      <NotFoundPage></NotFoundPage>
+    </div>
   </div>
 </template>
 
 <script>
 import FamilyRecipePreviewList from "../components/FamilyRecipePreviewList";
 import FamilyRecipeModal from "../components/FamilyRecipeModal.vue";
+import NotFoundPage from "../pages/NotFoundPage.vue";
 export default {
   components: {
     FamilyRecipePreviewList,
-    FamilyRecipeModal
-  }
+    FamilyRecipeModal,
+    NotFoundPage,
+  },
 };
 </script>
 

@@ -71,7 +71,6 @@ export default {
           // this.$root.store.server_domain
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-
         const recipes = [
           response.data.FirstRecipe,
           response.data.SecondRecipe,
@@ -92,7 +91,7 @@ export default {
     async updateFavoritesRecipes() {
       try {
         const response = await this.axios.get(
-          // process.env.VUE_APP_ROOT_API + "/recipes/random",
+          // process.env.VUE_APP_ROOT_API + "/user/favorites",
           "http://localhost:3000/user/favorites"
         );
         console.log(response.data);
@@ -106,7 +105,7 @@ export default {
     async updateMyRecipes() {
       try {
         const response = await this.axios.get(
-          // process.env.VUE_APP_ROOT_API + "/recipes/random",
+          // process.env.VUE_APP_ROOT_API + "/user/myRecipes",
           "http://localhost:3000/user/myRecipes"
           // this.$root.store.server_domain
           // "https://test-for-3-2.herokuapp.com/recipes/random"

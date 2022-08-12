@@ -1,30 +1,32 @@
 <template>
-  <div>
-    <div v-if="$root.store.username" class="container">
+  <div class="container">
+    <div v-if="$root.store.username">
       <h1 class="title">Your Recipes:</h1>
       <RecipePreviewList
         title="My Recipes"
-        class="RandomRecipes center"
+        class="myRecipes center"
         page_type="myRecipes"
       />
     </div>
     <div v-else-if="!$root.store.username">
-      <h1>Sorry, you have to log in to see this page</h1>
+      <NotFoundPage></NotFoundPage>
     </div>
   </div>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import NotFoundPage from "../pages/NotFoundPage.vue";
 export default {
   components: {
     RecipePreviewList,
+    NotFoundPage,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.RandomRecipes {
+.myRecipes {
   margin: 10px 0 10px;
 }
 .blur {

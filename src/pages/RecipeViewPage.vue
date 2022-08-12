@@ -77,6 +77,25 @@ export default {
     },
   },
 
+  async mounted() {
+    try {
+      console.log("Adding recipe to last seen:")
+      console.log(this.$route.params.recipeId);
+      const response = await this.axios.post(
+        "http://localhost:3000/user/lastSeenRecipes",
+        {
+          recipe_id: this.$route.params.recipeId
+        }
+      );
+      console.log("response.status", response.status);
+      if (response.status !== 200) this.$router.replace("/NotFound");
+    } catch (error) {
+      console.log("error.response.status", error.response.status);
+      this.$router.replace("/NotFound");
+      return;
+    }
+  },
+
   async created() {
     try {
       let response;

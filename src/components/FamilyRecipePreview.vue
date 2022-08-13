@@ -5,7 +5,13 @@
   >
   <div >
     <div class="recipe-body">
-      <img :src="recipe.photos" class="recipe-image" />
+              <b-img
+          class="recipe-image"
+          thumbnail
+          fluid
+          :src="recipe.photos"
+          alt="Image 1"
+        ></b-img>
     </div>
     <div class="recipe-footer">
       <div :title="recipe.recipe_id" class="recipe-title">
@@ -53,8 +59,8 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 98%;
-  height: auto;
+  width: 350px;
+  height: 350px;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;

@@ -1,7 +1,7 @@
 <template>
   <b-container>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+    <b-row v-for="r in recipes" :key="r.id">
+      <b-col>
         <RecipePreview class="recipePreview" :recipe="r" :recipe_type="page_type" />
       </b-col>
     </b-row>
@@ -43,20 +43,16 @@ export default {
       console.log("Random recipes here~~~");
       try {
         const response = await this.axios.get(
-          // process.env.VUE_APP_ROOT_API + "/recipes/random",
-          "http://localhost:3000/recipes/random",
+          process.env.VUE_APP_ROOT_API + "/recipes/random",
+          // "http://localhost:3000/recipes/random",
           { withCredentials: false }
-          // this.$root.store.server_domain
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
-        // console.log(response);
         const recipes = response.data.recipes;
         console.log("Random recipes are:");
         console.log(recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -66,10 +62,8 @@ export default {
       console.log("last seen recipes");
       try {
         const response = await this.axios.get(
-          // process.env.VUE_APP_ROOT_API + "/recipes/random",
-          "http://localhost:3000/user/lastSeenRecipes"
-          // this.$root.store.server_domain
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
+          process.env.VUE_APP_ROOT_API + "/user/lastSeenRecipes",
+          // "http://localhost:3000/user/lastSeenRecipes"
         );
         const recipes = [
           response.data.FirstRecipe,
@@ -89,10 +83,11 @@ export default {
       }
     },
     async updateFavoritesRecipes() {
+      console.log("favorite recipes here")
       try {
         const response = await this.axios.get(
-          // process.env.VUE_APP_ROOT_API + "/user/favorites",
-          "http://localhost:3000/user/favorites"
+          process.env.VUE_APP_ROOT_API + "/user/favorites",
+          // "http://localhost:3000/user/favorites"
         );
         console.log(response.data);
         const recipes = response.data;
@@ -105,10 +100,8 @@ export default {
     async updateMyRecipes() {
       try {
         const response = await this.axios.get(
-          // process.env.VUE_APP_ROOT_API + "/user/myRecipes",
-          "http://localhost:3000/user/myRecipes"
-          // this.$root.store.server_domain
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
+          process.env.VUE_APP_ROOT_API + "/user/myRecipes",
+          // "http://localhost:3000/user/myRecipes"
         );
         try {
           console.log(response);

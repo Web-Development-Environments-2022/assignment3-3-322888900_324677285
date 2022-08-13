@@ -1,27 +1,27 @@
 <template>
   <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList
-      title="Random Recipes"
-      class="RandomRecipes center"
-      page_type="random"
-    ></RecipePreviewList>
-    <router-link v-if="!$root.store.username" to="/login" tag="button"
-      >You need to Login to vue this</router-link
-    >
-    <h1> You watched:</h1>
-    <!-- {{ $root.store.username }} -->
-    <RecipePreviewList v-if="$root.store.username"
-      title="Last View Recipes"
-      class="lastSeenRecipes center"
-      page_type="recentleyViewed"
-    ></RecipePreviewList>
-
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div> -->
+    <b-row>
+      <b-col>
+        <h1 class="title">Main Page</h1>
+        <RecipePreviewList
+          title="Random Recipes"
+          class="RandomRecipes center"
+          page_type="random"
+        ></RecipePreviewList>
+      </b-col>
+      <b-col>
+        <h1>You watched:</h1>
+        <router-link v-if="!$root.store.username" to="/login" tag="button"
+          >You need to Login to vue this</router-link
+        >
+        <RecipePreviewList
+          v-if="$root.store.username"
+          title="Last View Recipes"
+          class="lastSeenRecipes center"
+          page_type="recentleyViewed"
+        ></RecipePreviewList>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

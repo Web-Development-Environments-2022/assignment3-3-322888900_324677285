@@ -3,6 +3,8 @@ import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+import 'dotenv/config'
+console.log(process.env)
 axios.defaults.withCredentials = true
 
 Vue.use(BootstrapVue)
@@ -73,17 +75,23 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
+  server_domain: "https://Exprecipes.cs.bgu.ac.il",
+  lastSearch: localStorage.lastSearch,
   username: localStorage.username,
   login(username) {
     console.log(localStorage.username)
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
+    localStorage.setItem("lastSearch", {});
+    this.lastSearch = {}
   },
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+    localStorage.removeItem("lastSearch");
+    this.lastSearch = {}
   },
 };
 console.log(shared_data);

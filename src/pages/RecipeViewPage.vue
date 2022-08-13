@@ -79,12 +79,12 @@ export default {
 
   async mounted() {
     try {
-      console.log("Adding recipe to last seen:")
+      console.log("Adding recipe to last seen:");
       console.log(this.$route.params.recipeId);
       const response = await this.axios.post(
         "http://localhost:3000/user/lastSeenRecipes",
         {
-          recipe_id: this.$route.params.recipeId
+          recipe_id: this.$route.params.recipeId,
         }
       );
       console.log("response.status", response.status);
@@ -94,6 +94,23 @@ export default {
       this.$router.replace("/NotFound");
       return;
     }
+    //NOT SURE WE NEED IT - CHECK
+    console.log("Adding recipe to clicked");
+    console.log(this.$route.params.recipeId)
+    console.log(localStorage.username)
+    let clicked_recipes = []
+    if (localStorage.getItem(localStorage.username) !== null) {
+      let clicked_recipes = JSON.parse(
+        localStorage.getItem(localStorage.username)
+      );
+      if (!clicked_recipes.includes(this.$route.params.recipeId)) {
+        clicked_recipes.push();
+      }
+    }
+    else{
+      clicked_recipes.push(this.$route.params.recipeId)
+    }
+    localStorage.setItem(localStorage.username, JSON.stringify(clicked_recipes));
   },
 
   async created() {
@@ -145,7 +162,6 @@ export default {
         title,
       };
       this.recipe = _recipe;
-      
     } catch (error) {
       console.log(error);
     }

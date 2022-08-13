@@ -1,21 +1,50 @@
 <template>
   <div>
-    <button @click="like" v-if="!addedTofav">
+    <button v-b-tooltip.hover title="Add to favorites" @click="like" v-if="!addedTofav && (recipe_type === 'random' || recipe_type === 'lastSeenRecipes')">
       <b-icon-heart></b-icon-heart>
     </button>
-    <button v-if="addedTofav">
+    <button v-b-tooltip.hover title="Was added to favorites" v-if="addedTofav && (recipe_type === 'random' || recipe_type === 'lastSeenRecipes')">
       <b-icon-heart-fill></b-icon-heart-fill>
     </button>
 
-    <router-link
+    <router-link @click.native="clickIndication" v-if=" recipe_type !== 'myRecipes'"
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="recipe-preview"
     >
       <div class="recipe-body">
-        <b-img class="recipe-image" thumbnail fluid :src="recipe.image" alt="Image 1"></b-img>
-        <!-- <img :src="recipe.image" class="recipe-image" /> -->
+        <b-img
+          class="recipe-image"
+          thumbnail
+          fluid
+          :src="recipe.image"
+          alt="Image 1"
+        ></b-img>
       </div>
       <div class="recipe-footer">
+        <div :title="recipe.title" class="recipe-title">
+          {{ recipe.title }}
+        </div>
+        <ul class="recipe-overview">
+          <li>{{ recipe.readyInMinutes }} minutes</li>
+          <li>{{ recipe.aggregateLikes }} likes</li>
+        </ul>
+      </div>
+    </router-link>
+
+    <router-link :style="{ 'text-decoration-color': active_color }" @click.native="clickIndication" v-if=" recipe_type === 'myRecipes'"
+      :to="{ name: 'myRecipe', params: { recipe: recipe } }"
+      class="recipe-preview"
+    >
+      <div class="recipe-body">
+        <b-img
+          class="recipe-image"
+          thumbnail
+          fluid
+          :src="recipe.image"
+          alt="Image 1"
+        ></b-img>
+      </div>
+      <div :style="{ 'text-decoration-color': active_color }" class="recipe-footer">
         <div :title="recipe.title" class="recipe-title">
           {{ recipe.title }}
         </div>
@@ -33,6 +62,8 @@ export default {
   data() {
     return {
       addedTofav: false,
+      clicked: false,
+      active_color: 'blue',
     };
   },
   props: {
@@ -40,6 +71,10 @@ export default {
       type: Object,
       required: true,
     },
+    recipe_type:{
+      type: String,
+      required: true,
+    }
   },
   mounted() {
     this.checkInFavs;
@@ -64,30 +99,30 @@ export default {
         console.log(error);
       }
     },
-    async like() {//STILL TESTING IT
+    async like() {
+      //STILL TESTING IT
       try {
-        const response = await this.axios.get(
+        console.log("cliked like");
+        console.log(this.addedTofav);
+        const response = await this.axios.post(
           "http://localhost:3000/user/favorites",
-          { withCredentials: false }
+          { withCredentials: true, recipe_id: this._props.recipe.id }
         );
-        console.log(response[0].id);
 
-        //   console.log("recipe is in favorites: ")
-        //   console.log(this.addedTofav)
-        //   console.log("recipe id is:  ");
-        //   console.log(this._props.recipe.id)
-        //   const response = await this.axios.post(
-        //     "http://localhost:3000/user/favorites",
-        //     {
-        //       withCredentials: true,
-        //       recipe_id: this._props.recipe.id
-        //     }
-        //   );
-        //   this.addedTofav = true;
-        //   console.log(this.addedTofav);
+        console.log(response);
+        console.log("after clicking");
+        this.addedTofav = true;
+        console.log(this.addedTofav);
       } catch (error) {
         console.log(error);
       }
+    },
+    //MAYBE WE DONT NEED ALL THIS - NEED TO CHECK
+    clickIndication(){
+      console.log("change text color")
+      this.clicked = true;
+      this.active_color = 'black'
+      console.log(this.clicked)
     },
   },
 };
@@ -100,6 +135,10 @@ export default {
   height: 100%;
   position: relative;
   margin: 10px 10px;
+  color:blue;
+}
+.recipe-preview:visited{
+  color:brown;
 }
 .recipe-preview > .recipe-body {
   width: 100%;

@@ -23,7 +23,7 @@
           class="profile_image"
           thumbnail
           fluid
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwPysUFNvqpMLIMclX-WIJ93Y51UlUePOJ4y55TkKPDiQdVovFPKlY4b27r5F8JrIRSn4&usqp=CAU"
+          :src="require('@/assets/niv_profile.jpeg')"
           rounded="circle"
           alt="Circle image"
         ></b-img></a>

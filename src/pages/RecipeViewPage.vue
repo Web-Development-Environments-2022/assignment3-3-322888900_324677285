@@ -60,7 +60,6 @@ export default {
   methods: {
     async like() {
       try {
-        console.log("call like favourite ");
         console.log(this.$route.params.recipeId);
         const response = await this.axios.post(
           "http://localhost:3000/user/favorites",

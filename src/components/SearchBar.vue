@@ -6,14 +6,6 @@
       type="text"
       v-model="search"
     ></b-form-input>
-    <b-container>
-      <b-row>
-        <b-col v-for="r in recipes" :key="r.id">
-          <RecipePreview class="recipePreview" :recipe="r" recipe_type="search" />
-        </b-col>
-      </b-row>
-    </b-container>
-
     <b-form>
       <p>Please enter number of Recipes to return:</p>
       <div class="input-group-text">
@@ -63,6 +55,7 @@
 
     <b-form @submit.prevent="searchRecipes">
       <b-button
+      @click="$emit('updateLastSearch')"
         type="submit"
         variant="primary"
         style="width:100px;
@@ -101,6 +94,14 @@
     >
       No Such Recipes
     </b-alert>
+    <b-container>
+      <h1> Search results:</h1>
+      <b-row v-for="r in recipes" :key="r.id">
+        <b-col>
+          <RecipePreview class="recipePreview" :recipe="r" recipe_type="search" />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 <script>
@@ -188,7 +189,6 @@ export default {
         if (localStorage.lastSearch) {
           const recipes = response.data;
           localStorage.setItem("lastSearch", JSON.stringify(response.data[0]));
-          console.log(localStorage.getItem("lastSearch"))
           this.recipes = [];
           this.recipes.push(...recipes);
           this.didEnterValue = true;

@@ -82,7 +82,6 @@ export default {
       console.log(this.addedTofav)
       try {
         if (this.addedTofav === false) {
-          console.log("check if in favourites ");
           const response = await this.axios.get(
             process.env.VUE_APP_ROOT_API + "/user/favorites",
             // "http://localhost:3000/user/favorites",

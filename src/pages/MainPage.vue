@@ -11,9 +11,7 @@
       </b-col>
       <b-col>
         <h1>You watched:</h1>
-        <router-link v-if="!$root.store.username" to="/login" tag="button"
-          >You need to Login to vue this</router-link
-        >
+        <router-link to="/login" v-if="!$root.store.username" class="btn btn-info btn-lg" role="button">You need to Login to vue this</router-link>
         <RecipePreviewList
           v-if="$root.store.username"
           title="Last View Recipes"
@@ -50,5 +48,10 @@ export default {
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
+}
+
+.btn-info, .btn-info:hover, .btn-info:active, .btn-info:visited {
+    background-color: #7e0aa8 !important;
+    border-block-color:  #7e0aa8;
 }
 </style>

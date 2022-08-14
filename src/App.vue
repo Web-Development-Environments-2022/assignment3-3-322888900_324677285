@@ -1,50 +1,104 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <!--LOGO -->
-      <b-navbar variant="faded" type="light">
-        <b-navbar-brand href="#">
-          <img
-            :src="require('@/assets/logo-ow.png')"
-            class="d-inline-block align-top "
-            alt="Kitten"
-          />
-        </b-navbar-brand>
-      </b-navbar>
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img
+          :src="require('@/assets/logo-ow.png')"
+          class="d-inline-block align-top "
+          alt="Kitten"
+        />
+      </a>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-      <b-navbar toggleable="sm" type="light" variant="light">
-        <b-navbar-nav>
-          <b-nav-item :to="{ name: 'main' }">Main page</b-nav-item>|
-          <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>|
-          <b-nav-item :to="{ name: 'about' }">About</b-nav-item>|
-
-          <h5 v-if="!$root.store.username">Hello Guest!</h5>
-            <b-nav-item v-if="!$root.store.username" :to="{ name: 'register' }">Register</b-nav-item>|
-            <b-nav-item v-if="!$root.store.username" :to="{ name: 'login' }">Login</b-nav-item>|
-          <b-nav-item @click="Logout" v-if="$root.store.username">Logout</b-nav-item>
-          <h5 v-if="$root.store.username">
-            Welcome:{{ $root.store.username }}
-          </h5>
-
-          <!-- Navbar dropdowns -->
-          <b-nav-item-dropdown
-            v-if="$root.store.username"
-            text="Personal"
-            right
-          >
-            <b-dropdown-item :to="{ name: 'favorites' }"
-              >favorites</b-dropdown-item
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <b-nav-item class="nav-link" :to="{ name: 'main' }"
+              >Main page <span class="sr-only">(current)</span></b-nav-item
             >
-            <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'myRecipes' }"
-              >my recipes</b-dropdown-item
+          </li>
+          <li class="nav-item">
+            <b-nav-item class="nav-link" :to="{ name: 'search' }" href="#"
+              >Search</b-nav-item
             >
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-
-        <NewRecipeModal></NewRecipeModal>
-      </b-navbar>
-    </div>
+          </li>
+          <li class="nav-item">
+            <b-nav-item class="nav-link" :to="{ name: 'about' }" href="#"
+              >About</b-nav-item
+            >
+          </li>
+        </ul>
+        <!-- right side of navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <b-nav-text class="nav-text" v-if="!$root.store.username"
+                >Hello Guest:</b-nav-text
+              >
+            </li>
+            <li class="nav-item">
+              <b-nav-item
+                class="nav-link"
+                v-if="!$root.store.username"
+                :to="{ name: 'login' }"
+                href="#"
+                >Login</b-nav-item
+              >
+            </li>
+            <li class="nav-item">
+              <b-nav-item
+                class="nav-link"
+                v-if="!$root.store.username"
+                :to="{ name: 'register' }"
+                href="#"
+                >Register</b-nav-item
+              >
+            </li>
+            <li class="nav-item">
+              <b-nav-text class="nav-text" v-if="$root.store.username">
+                Welcome:{{ $root.store.username }}
+              </b-nav-text>
+            </li>
+            <b-nav-item-dropdown
+              v-if="$root.store.username"
+              text="Personal"
+              right
+            >
+              <b-dropdown-item :to="{ name: 'favorites' }"
+                >favorites</b-dropdown-item
+              >
+              <b-dropdown-item :to="{ name: 'family' }">family</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'myRecipes' }"
+                >my recipes</b-dropdown-item
+              >
+            </b-nav-item-dropdown>
+            <li class="nav-item">
+              <b-nav-item
+                class="nav-link"
+                @click="Logout"
+                v-if="$root.store.username"
+                >Logout</b-nav-item
+              >
+            </li>
+            <li>
+              <NewRecipeModal></NewRecipeModal>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </nav>
     <router-view />
   </div>
 </template>
@@ -91,6 +145,6 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #7e0aa8;
 }
 </style>

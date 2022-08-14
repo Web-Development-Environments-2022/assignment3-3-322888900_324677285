@@ -8,7 +8,7 @@
         label="Username:"
         label-for="Username"
       >
-        <b-form-input
+        <b-form-input class="input_form"
           id="Username"
           v-model="$v.form.username.$model"
           type="text"
@@ -25,7 +25,7 @@
         label="Password:"
         label-for="Password"
       >
-        <b-form-input
+        <b-form-input class="input_form"
           id="Password"
           type="password"
           v-model="$v.form.password.$model"
@@ -96,13 +96,8 @@ export default {
       try {
         
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Login",
-          "http://localhost:3000/login",
-          // process.env.VUE_APP_ROOT_API + "/Login",
-          // this.$root.store.server_domain +"/Login",
-          // "http://132.72.65.211:80/Login",
-          // "http://132.73.84.100:80/Login",
-
+          process.env.VUE_APP_ROOT_API + "/login",
+          // "http://localhost:3000/login",
           {
             username: this.form.username,
             password: this.form.password,
@@ -133,5 +128,20 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+}
+
+.mx-auto{
+  background-color: #7e0aa8;
+  border-block-color: #7e0aa8;
+}
+
+.w-100{
+  background-color: #7e0aa8;
+  border-block-color: #7e0aa8;
+}
+
+.input_form{
+  border-block-color: #7e0aa8;
+
 }
 </style>

@@ -8,7 +8,7 @@
         label="Username:"
         label-for="username"
       >
-        <b-form-input
+        <b-form-input class="input_form"
           id="username"
           v-model="$v.form.username.$model"
           type="text"
@@ -31,7 +31,7 @@
         label="firstName:"
         label-for="firstName"
       >
-        <b-form-input
+        <b-form-input class="input_form"
           id="firstName"
           v-model="$v.form.firstName.$model"
           type="text"
@@ -52,7 +52,7 @@
         label="lastName:"
         label-for="lastName"
       >
-        <b-form-input
+        <b-form-input class="input_form"
           id="lastName"
           v-model="$v.form.lastName.$model"
           type="text"
@@ -74,7 +74,7 @@
         label="email:"
         label-for="email"
       >
-        <b-form-input
+        <b-form-input class="input_form"
           id="email"
           v-model="$v.form.email.$model"
           type="text"
@@ -97,7 +97,7 @@
         label="Country:"
         label-for="country"
       >
-        <b-form-select
+        <b-form-select class="input_form"
           id="country"
           v-model="$v.form.country.$model"
           :options="countries"
@@ -115,7 +115,7 @@
         label="Password:"
         label-for="password"
       >
-        <b-form-input
+        <b-form-input class="input_form"
           id="password"
           type="password"
           v-model="$v.form.password.$model"
@@ -141,7 +141,7 @@
         label="Confirm Password:"
         label-for="confirmedPassword"
       >
-        <b-form-input
+        <b-form-input class="input_form"
           id="confirmedPassword"
           type="password"
           v-model="$v.form.confirmedPassword.$model"
@@ -261,10 +261,8 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          "http://localhost:3000/register",
-          // this.$root.store.server_domain + "/Register",
-          // process.env.VUE_APP_ROOT_API + "/Register",
-
+          // "http://localhost:3000/register",
+          process.env.VUE_APP_ROOT_API + "/Register",
           {
             username: this.form.username,
             password: this.form.password,
@@ -273,7 +271,7 @@ export default {
             country:this.form.country ,
             email: this.form.email,
             withCredentials: false
-            //NEED TO ADD PROFILE PICTURE
+            //NEED TO ADD PROFILE PICTURE-?????
           }
         );
         this.$router.push("/Login");
@@ -312,5 +310,19 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+}
+.ml-5{
+  background-color: #7e0aa8;
+  border-block-color: #7e0aa8;
+}
+
+.w-75o{
+  background-color: #7e0aa8;
+  border-block-color: #7e0aa8;
+}
+
+.input_form{
+  border-block-color: #7e0aa8;
+
 }
 </style>

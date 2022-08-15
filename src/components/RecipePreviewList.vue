@@ -43,7 +43,8 @@ export default {
       console.log("Random recipes here~~~");
       try {
         const response = await this.axios.get(
-          process.env.VUE_APP_ROOT_API + "/recipes/random",
+          //process.env.VUE_APP_ROOT_API + "/recipes/random",
+          this.$root.store.server_domain+"/recipes/random",
           // "http://localhost:3000/recipes/random",
           { withCredentials: false }
         );
@@ -62,7 +63,8 @@ export default {
       console.log("last seen recipes");
       try {
         const response = await this.axios.get(
-          process.env.VUE_APP_ROOT_API + "/user/lastSeenRecipes",
+          //process.env.VUE_APP_ROOT_API + "/user/lastSeenRecipes",
+          this.$root.store.server_domain + "/user/lastSeenRecipes",
           // "http://localhost:3000/user/lastSeenRecipes"
         );
         const recipes = [
@@ -86,7 +88,8 @@ export default {
       console.log("favorite recipes here")
       try {
         const response = await this.axios.get(
-          process.env.VUE_APP_ROOT_API + "/user/favorites",
+          //process.env.VUE_APP_ROOT_API + "/user/favorites",
+          this.$root.store.server_domain + "/user/favorites",
           // "http://localhost:3000/user/favorites"
         );
         console.log(response.data);
@@ -100,7 +103,8 @@ export default {
     async updateMyRecipes() {
       try {
         const response = await this.axios.get(
-          process.env.VUE_APP_ROOT_API + "/user/myRecipes",
+          //process.env.VUE_APP_ROOT_API + "/user/myRecipes",
+          this.$root.store.server_domain+ "/user/myRecipes",
           // "http://localhost:3000/user/myRecipes"
         );
         try {

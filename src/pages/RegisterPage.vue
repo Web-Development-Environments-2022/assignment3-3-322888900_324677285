@@ -261,8 +261,9 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          // "http://localhost:3000/register",
-          process.env.VUE_APP_ROOT_API + "/Register",
+          this.$root.store.server_domain +"/register",
+          //"http://localhost:3000/register",
+          //process.env.VUE_APP_ROOT_API + "/Register",
           {
             username: this.form.username,
             password: this.form.password,

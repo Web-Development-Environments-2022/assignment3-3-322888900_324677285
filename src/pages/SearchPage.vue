@@ -42,6 +42,7 @@ export default {
   },
   mounted() {
    //doesnt update the recipe very good
+   console.log(localStorage)
    if (localStorage.lastSearch){
       this.lastSearch = JSON.parse(localStorage.getItem("lastSearch"))
       console.log("mounted - last Search is:");

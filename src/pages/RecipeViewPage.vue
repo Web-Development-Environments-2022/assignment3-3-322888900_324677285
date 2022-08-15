@@ -62,7 +62,8 @@ export default {
       try {
         console.log(this.$route.params.recipeId);
         const response = await this.axios.post(
-          "http://localhost:3000/user/favorites",
+         // "http://localhost:3000/user/favorites",
+          this.$root.store.server_domain+"/user/favorites",
           {
             // withCredentials: true,
             recipe_id: this.$route.params.recipeId,
@@ -80,8 +81,11 @@ export default {
     try {
       console.log("Adding recipe to last seen:");
       console.log(this.$route.params.recipeId);
+      console.log("hereeee"+this.$root.store.server_domain)
+
       const response = await this.axios.post(
-        "http://localhost:3000/user/lastSeenRecipes",
+        //"http://localhost:3000/user/lastSeenRecipes",
+        this.$root.store.server_domain+"/user/lastSeenRecipes",
         {
           recipe_id: this.$route.params.recipeId,
         }
@@ -121,7 +125,8 @@ export default {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           // this.$root.store.server_domain + "/recipes/info",
-          "http://localhost:3000/recipes/fullRecipe/" +
+          
+             this.$root.store.server_domain + "/recipes/fullRecipe/" +
             this.$route.params.recipeId
           // process.env.VUE_APP_ROOT_API + "/recipes/fullRecipe",
         );

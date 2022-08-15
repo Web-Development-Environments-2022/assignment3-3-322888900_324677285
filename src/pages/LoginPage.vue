@@ -96,7 +96,7 @@ export default {
       try {
         
         const response = await this.axios.post(
-          process.env.VUE_APP_ROOT_API + "/login",
+          this.$root.store.server_domain + "/login",
           // "http://localhost:3000/login",
           {
             username: this.form.username,

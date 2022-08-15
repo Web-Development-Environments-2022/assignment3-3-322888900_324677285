@@ -93,7 +93,8 @@ export default {
     async insertRecipe() {
       try {
         const response = await this.axios.post(
-          "http://localhost:3000/user/family",
+          //"http://localhost:3000/user/family",
+          this.$root.store.server_domain+"/user/family",
           {
             recipe_id: this.recipeName,
             recipe_owner: this.recipeOwner,

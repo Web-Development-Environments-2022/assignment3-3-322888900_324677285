@@ -128,7 +128,8 @@ export default {
         console.log(vegetarian);
         console.log(glutenFree);
         const response = await this.axios.post(
-          "http://localhost:3000/user/myRecipes",
+         // "http://localhost:3000/user/myRecipes",
+          this.$root.store.server_domain+"/user/myRecipes",
           {
             recipe_name: this.recipe_name,
             duration: this.duration,

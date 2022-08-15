@@ -4,7 +4,6 @@ import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 import 'dotenv/config'
-console.log(process.env)
 axios.defaults.withCredentials = true
 
 Vue.use(BootstrapVue)
@@ -75,7 +74,8 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
-  server_domain: "https://Exprecipes.cs.bgu.ac.il",
+ // server_domain: "https://Exprecipes.cs.bgu.ac.il",
+  server_domain:"http://localhost:3000",
   lastSearch: localStorage.lastSearch,
   username: localStorage.username,
   login(username) {

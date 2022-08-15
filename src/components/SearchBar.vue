@@ -172,7 +172,8 @@ export default {
       try {
         console.log("call function search");
         const response = await this.axios.get(
-          "http://localhost:3000/recipes/searchForRecipe/" + this.search,
+          //"http://localhost:3000/recipes/searchForRecipe/" + this.search,
+          this.$root.store.server_domain+"/recipes/searchForRecipe/" + this.search,
           {
             params: {
               query: this.search,

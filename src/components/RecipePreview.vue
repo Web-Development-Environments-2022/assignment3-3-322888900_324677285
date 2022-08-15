@@ -116,7 +116,8 @@ export default {
       try {
         if (this.addedTofav === false) {
           const response = await this.axios.get(
-            process.env.VUE_APP_ROOT_API + "/user/favorites",
+            //process.env.VUE_APP_ROOT_API + "/user/favorites",
+             this.$root.store.server_domain  + "/user/favorites",
             // "http://localhost:3000/user/favorites",
             { withCredentials: true }
           );
@@ -140,7 +141,8 @@ export default {
         console.log("cliked like");
         console.log(this.addedTofav);
         const response = await this.axios.post(
-          "http://localhost:3000/user/favorites",
+         // "http://localhost:3000/user/favorites",
+          this.$root.store.server_domain +"/user/favorites",
           { withCredentials: true, recipe_id: this._props.recipe.id }
         );
 

@@ -40,7 +40,7 @@ const routes = [
   {
     path: "/user/favorites",
     name: "favorites",
-    component: () => import("./pages/FavoritesViewPage"),
+    component: () => import("./pages/favoritesViewPage"),
   },
   {
     path: "/user/family",

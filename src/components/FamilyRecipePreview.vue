@@ -1,28 +1,32 @@
 <template>
-  <router-link
-    :to="{ name: 'FamilyRecipeViewPage', params: { recipe: recipe }, prop: { recipe: recipe } }" 
-    class="recipe-preview"
+  <router-link 
+    :to="{
+      name: 'FamilyRecipeViewPage',
+      params: { recipe: recipe },
+      prop: { recipe: recipe },
+    }"
+    class="recipe-preview border border-1"
   >
-  <div >
-    <div class="recipe-body">
-              <b-img
+    <div>
+      <div class="recipe-body">
+        <b-img
           class="recipe-image"
           thumbnail
           fluid
           :src="recipe.photos"
           alt="Image 1"
         ></b-img>
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.recipe_id" class="recipe-title">
-        {{ recipe.recipe_id }}
       </div>
-      <ul class="recipe-overview">
-        <li> Best time to make it: {{ recipe.when_to_cook }} </li>
-        <li> Owner of this recipe: {{ recipe.owner_of_recipe }}</li>
-      </ul>
+      <div class="recipe-footer">
+        <div :title="recipe.recipe_id" class="recipe-title">
+          {{ recipe.recipe_id }}
+        </div>
+        <ul class="recipe-overview">
+          <li>Best time to make it: {{ recipe.when_to_cook }}</li>
+          <li>Owner of this recipe: {{ recipe.owner_of_recipe }}</li>
+        </ul>
+      </div>
     </div>
-  </div>
   </router-link>
 </template>
 
@@ -70,13 +74,15 @@ export default {
   width: 100%;
   height: 50%;
   overflow: hidden;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
   width: 100%;
-  font-size: 12pt;
-  text-align: left;
+  font-size: 16pt;
+  text-align: center;
+  text-decoration-line: underline;
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
@@ -114,4 +120,25 @@ export default {
   display: table-cell;
   text-align: center;
 }
+
+kbd {
+padding: 6px 6px;
+color: white;
+border-radius: 3px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.vegan{
+  background-color: #076e0c;
+  
+}
+.vegetarian{
+  background-color: #26d3aa;
+}
+
+.llg{
+    background-color: #E87121;
+
+}
+
 </style>

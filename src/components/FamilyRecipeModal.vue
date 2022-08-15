@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-button v-b-modal.family-modal>Enter Family Recipe</b-button>
+    <b-button class="btn btn-secondary btn-lg" v-b-modal.family-modal>+ New Family Recipe</b-button>
     <b-modal
       id="family-modal"
       title="Family Recipe"
@@ -121,3 +121,4 @@ export default {
   },
 };
 </script>
+

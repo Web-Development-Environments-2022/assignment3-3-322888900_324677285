@@ -1,13 +1,30 @@
 <template>
-  <div>
-    <button v-b-tooltip.hover title="Add to favorites" @click="like" v-if="!addedTofav && (recipe_type === 'random' || recipe_type === 'recentleyViewed')">
+  <div class="border border-1">
+    <button
+      v-b-tooltip.hover
+      title="Add to favorites"
+      @click="like"
+      v-if="
+        !addedTofav &&
+          (recipe_type === 'random' || recipe_type === 'recentleyViewed')
+      "
+    >
       <b-icon-heart></b-icon-heart>
     </button>
-    <button v-b-tooltip.hover title="Was added to favorites" v-if="addedTofav && (recipe_type === 'random' || recipe_type === 'recentleyViewed')">
+    <button
+      v-b-tooltip.hover
+      title="Was added to favorites"
+      v-if="
+        addedTofav &&
+          (recipe_type === 'random' || recipe_type === 'recentleyViewed')
+      "
+    >
       <b-icon-heart-fill></b-icon-heart-fill>
     </button>
 
-    <router-link @click.native="clickIndication" v-if=" recipe_type !== 'myRecipes'"
+    <router-link
+      @click.native="clickIndication"
+      v-if="recipe_type !== 'myRecipes'"
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="recipe-preview"
     >
@@ -24,14 +41,26 @@
         <div :title="recipe.title" class="recipe-title">
           {{ recipe.title }}
         </div>
-        <ul class="recipe-overview">
-          <li>{{ recipe.readyInMinutes }} minutes</li>
-          <li>{{ recipe.aggregateLikes }} likes</li>
-        </ul>
+        <div>
+          <ul class="recipe-overview">
+            <li>{{ recipe.readyInMinutes }} minutes</li>
+            <li>{{ recipe.aggregateLikes }} likes</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="recipe-tags">
+            <li v-if="recipe.vegan"><kbd class="vegan">Vegan</kbd></li>
+            <li v-if="recipe.vegetarian"><kbd class="vegetarian">Vegetarian</kbd></li>
+            <li v-if="recipe.glutenFree"><kbd class="llg">Gluten Free</kbd></li>
+          </ul>
+        </div>
       </div>
     </router-link>
 
-    <router-link :style="{ color: active_color }" @click.native="clickIndication" v-if=" recipe_type === 'myRecipes'"
+    <router-link
+      :style="{ color: active_color }"
+      @click.native="clickIndication"
+      v-if="recipe_type === 'myRecipes'"
       :to="{ name: 'myRecipe', params: { recipe: recipe } }"
       class="recipe-preview"
     >
@@ -44,7 +73,10 @@
           alt="Image 1"
         ></b-img>
       </div>
-      <div :style="{ 'text-decoration-color': active_color }" class="recipe-footer">
+      <div
+        :style="{ 'text-decoration-color': active_color }"
+        class="recipe-footer"
+      >
         <div :title="recipe.title" class="recipe-title ">
           {{ recipe.title }}
         </div>
@@ -71,15 +103,16 @@ export default {
       type: Object,
       required: true,
     },
-    recipe_type:{
+    recipe_type: {
       type: String,
       required: true,
-    }
+    },
   },
-  async mounted() { // NEED TO CHECK
-    if(this.recipe_type !== 'myRecipes' && this.recipe_type !== 'search'){
-      console.log("in checkInFavs - was added?")
-      console.log(this.addedTofav)
+  async mounted() {
+    // NEED TO CHECK
+    if (this.recipe_type !== "myRecipes" && this.recipe_type !== "search" && this.recipe_type !== "favorites") {
+      console.log("in checkInFavs - was added?");
+      console.log(this.addedTofav);
       try {
         if (this.addedTofav === false) {
           const response = await this.axios.get(
@@ -91,8 +124,8 @@ export default {
           for (let i = 0; i < response.length; i++) {
             if (this._props.recipe.id === response.data[i].id) {
               this.addedTofav = true;
-              console.log("Added to favorites!")
-              console.log(this.addedTofav)
+              console.log("Added to favorites!");
+              console.log(this.addedTofav);
             }
           }
         }
@@ -102,31 +135,7 @@ export default {
     }
   },
   methods: {
-    // async checkInFavs() {
-    //   console.log("in checkInFavs")
-    //   console.log(this.addedTofav)
-    //   try {
-    //     if (this.addedTofav === false) {
-    //       console.log("check if in favourites ");
-    //       const response = await this.axios.get(
-    //         process.env.VUE_APP_ROOT_API + "/user/favorites",
-    //         { withCredentials: true }
-    //       );
-    //       console.log(response[0].id);
-    //       for (let i = 0; i < response.length; i++) {
-    //         if (this._props.recipe.id === response[i].id) {
-    //           this.addedTofav = true;
-    //           console.log("Added to faavorites!")
-    //           console.log(this.addedTofav)
-    //         }
-    //       }
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
     async like() {
-      //STILL TESTING IT
       try {
         console.log("cliked like");
         console.log(this.addedTofav);
@@ -144,18 +153,23 @@ export default {
       }
     },
     //MAYBE WE DONT NEED ALL THIS - NEED TO CHECK
-    clickIndication(){
-      console.log("change text color")
+    clickIndication() {
+      console.log("change text color");
       this.clicked = true;
-      this.active_color = "orange"
-      console.log(this.clicked)
-      console.log(this.active_color)
+      this.active_color = "orange";
+      console.log(this.clicked);
+      console.log(this.active_color);
     },
   },
 };
 </script>
 
 <style scoped>
+.container{
+  border-color: #E87121;
+
+}
+
 .recipe-preview {
   display: inline-block;
   width: 90%;
@@ -186,13 +200,16 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+
 }
 
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
   width: 100%;
-  font-size: 18pt;
+  font-size: 16pt;
   text-align: center;
+  text-decoration-line: underline;
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
@@ -230,4 +247,26 @@ export default {
   display: table-cell;
   text-align: center;
 }
+
+kbd {
+padding: 6px 6px;
+color: white;
+border-radius: 3px;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.vegan{
+  background-color: #076e0c;
+  
+}
+.vegetarian{
+  background-color: #26d3aa;
+}
+
+.llg{
+    background-color: #d37d0d;
+
+}
+
+
 </style>

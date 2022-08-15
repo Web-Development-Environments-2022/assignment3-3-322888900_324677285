@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <b-button v-if="$root.store.username" v-b-modal.new-rec-modal
-      >Enter New Recipe</b-button
+    <b-button class="btn btn-secondary btn-lg" v-if="$root.store.username" v-b-modal.new-rec-modal
+      >+ Add New Recipe</b-button
     >
     <b-modal
       ref="modal"
@@ -97,7 +97,7 @@ export default {
     return {
       recipe_name: "",
       duration: "",
-      popularity: "0",
+      aggregateLikes: "0",
       image: "",
       isVegan: false,
       isVegetarian: false,
@@ -133,7 +133,7 @@ export default {
             recipe_name: this.recipe_name,
             duration: this.duration,
             image: this.photos,
-            popularity: this.popularity,
+            aggregateLikes: this.aggregateLikes,
             vegan: this.isVegan,
             ingredients: this.ingredients,
             instructions: this.instructions,
@@ -157,7 +157,7 @@ export default {
     resetModal() {
       this.recipe_name = "",
       this.duration = "",
-      this.popularity = "0",
+      this.aggregateLikes = "0",
       this.image = "",
       this.isVegan = false,
       this.isVegetarian = false,

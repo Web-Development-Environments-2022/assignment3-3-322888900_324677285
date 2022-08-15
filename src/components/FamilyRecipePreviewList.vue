@@ -7,6 +7,9 @@
         </b-col>
       </b-row>
     </b-container>
+    <div v-if="recipes.length === 0">
+      <h3>You have no recipes yet...</h3>
+    </div>
   </div>
 </template>
 

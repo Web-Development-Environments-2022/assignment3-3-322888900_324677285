@@ -13,7 +13,7 @@
           <div class="wrapped">
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.popularity }} likes</div>
+              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
             </div>
             Ingredients:
             <ul>
@@ -137,7 +137,7 @@ export default {
         analyzedInstructions,
         instructions,
         extendedIngredients,
-        popularity,
+        aggregateLikes,
         readyInMinutes,
         image,
         title,
@@ -155,7 +155,7 @@ export default {
         _instructions,
         analyzedInstructions,
         extendedIngredients,
-        popularity,
+        aggregateLikes,
         readyInMinutes,
         image,
         title,
@@ -180,5 +180,8 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+.container{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 </style>

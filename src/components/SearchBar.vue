@@ -52,10 +52,10 @@
       :options="cuisineAsset"
       placeholder="cuisine"
     ></b-form-select>
-
+      <!-- @click="$emit('updateLastSearch')" -->
     <b-form @submit.prevent="searchRecipes">
       <b-button
-      @click="$emit('updateLastSearch')"
+
         type="submit"
         variant="primary"
         style="width:100px;
@@ -96,6 +96,7 @@
     </b-alert>
     <b-container>
       <h1> Search results:</h1>
+      <h3 v-if="recipes.length === 0"> No searches yet</h3>
       <b-row v-for="r in recipes" :key="r.id">
         <b-col>
           <RecipePreview class="recipePreview" :recipe="r" recipe_type="search" />

@@ -76,22 +76,28 @@ Vue.config.productionTip = false;
 const shared_data = {
  // server_domain: "https://Exprecipes.cs.bgu.ac.il",
   server_domain:"http://localhost:3000",
-  lastSearch: localStorage.lastSearch,
   username: localStorage.username,
   login(username) {
     console.log(localStorage.username)
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
-    localStorage.setItem("lastSearch", {});
+    localStorage.setItem("lastSearch", JSON.stringify({}));
     this.lastSearch = {}
+    localStorage.setItem("watchedRecipes", JSON.stringify({"recipes_id":[]}))
+    this.watchedRecipes = {"recipes_id":[]}
+
   },
+  
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
     localStorage.removeItem("lastSearch");
-    this.lastSearch = {}
+    this.lastSearch = undefined
+    localStorage.removeItem("watchedRecipes") 
+    this.watchedRecipes = undefined
+
   },
 };
 console.log(shared_data);

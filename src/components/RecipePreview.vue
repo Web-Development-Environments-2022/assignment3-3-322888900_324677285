@@ -1,11 +1,32 @@
 <template>
   <div class="border border-1">
+    <b-icon-eye
+      v-b-tooltip.hover
+      title="Unwatched"
+      font-scale="2"
+      v-if="
+        !clickedRecipes.includes(recipe.id) &&
+          (recipe_type === 'random' || recipe_type === 'recentleyViewed')
+      "
+    >
+    </b-icon-eye>
+    <b-icon-eye-fill
+      v-b-tooltip.hover
+      title="Watched"
+      font-scale="2"
+      v-if="
+        clickedRecipes.includes(recipe.id) &&
+          (recipe_type === 'random' || recipe_type === 'recentleyViewed')
+      "
+    >
+    </b-icon-eye-fill>
     <button
       v-b-tooltip.hover
       title="Add to favorites"
+      font-scale="2"
       @click="like"
       v-if="
-        !addedTofav &&
+        !favoriteRecipes.includes(recipe.id) &&
           (recipe_type === 'random' || recipe_type === 'recentleyViewed')
       "
     >
@@ -14,21 +35,21 @@
     <button
       v-b-tooltip.hover
       title="Was added to favorites"
+      font-scale="2"
       v-if="
-        addedTofav &&
+        favoriteRecipes.includes(recipe.id) &&
           (recipe_type === 'random' || recipe_type === 'recentleyViewed')
       "
     >
       <b-icon-heart-fill></b-icon-heart-fill>
     </button>
-
     <router-link
       @click.native="clickIndication"
       v-if="recipe_type !== 'myRecipes'"
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="recipe-preview"
     >
-      <div class="recipe-body">
+      <div class="recipe-body center">
         <b-img
           class="recipe-image"
           thumbnail
@@ -50,7 +71,9 @@
         <div>
           <ul class="recipe-tags">
             <li v-if="recipe.vegan"><kbd class="vegan">Vegan</kbd></li>
-            <li v-if="recipe.vegetarian"><kbd class="vegetarian">Vegetarian</kbd></li>
+            <li v-if="recipe.vegetarian">
+              <kbd class="vegetarian">Vegetarian</kbd>
+            </li>
             <li v-if="recipe.glutenFree"><kbd class="llg">Gluten Free</kbd></li>
           </ul>
         </div>
@@ -58,8 +81,7 @@
     </router-link>
 
     <router-link
-      :style="{ color: active_color }"
-      @click.native="clickIndication"
+      @click.native="addToWatchedRecipes"
       v-if="recipe_type === 'myRecipes'"
       :to="{ name: 'myRecipe', params: { recipe: recipe } }"
       class="recipe-preview"
@@ -73,10 +95,7 @@
           alt="Image 1"
         ></b-img>
       </div>
-      <div
-        :style="{ 'text-decoration-color': active_color }"
-        class="recipe-footer"
-      >
+      <div class="recipe-footer">
         <div :title="recipe.title" class="recipe-title ">
           {{ recipe.title }}
         </div>
@@ -84,6 +103,14 @@
           <li>{{ recipe.readyInMinutes }} minutes</li>
           <li>{{ recipe.aggregateLikes }} likes</li>
         </ul>
+        <div>
+          <div class="recipe-tags">
+            <kbd class="vegan" v-if="recipe.vegan">Vegan</kbd>
+
+            <kbd class="vegetarian" v-if="recipe.vegetarian">Vegetarian</kbd>
+            <kbd class="llg" v-if="recipe.glutenFree">Gluten Free</kbd>
+          </div>
+        </div>
       </div>
     </router-link>
   </div>
@@ -93,9 +120,8 @@
 export default {
   data() {
     return {
-      addedTofav: false,
-      clicked: false,
-      active_color: "blue",
+      favoriteRecipes: [],
+      clickedRecipes: [],
     };
   },
   props: {
@@ -109,26 +135,27 @@ export default {
     },
   },
   async mounted() {
-    // NEED TO CHECK
-    if (this.recipe_type !== "myRecipes" && this.recipe_type !== "search" && this.recipe_type !== "favorites") {
-      console.log("in checkInFavs - was added?");
-      console.log(this.addedTofav);
+    // geting the watched recipes from LS
+    if (localStorage.watchedRecipes) {
+      let dataFromLS = JSON.parse(localStorage.getItem("watchedRecipes"));
+      this.clickedRecipes = dataFromLS["recipes_id"];
+    }
+    if (
+      this.recipe_type !== "myRecipes" &&
+      this.recipe_type !== "search" &&
+      this.recipe_type !== "favorites" 
+    ) {
       try {
-        if (this.addedTofav === false) {
+        if (this.favoriteRecipes.length === 0) {
           const response = await this.axios.get(
             //process.env.VUE_APP_ROOT_API + "/user/favorites",
-             this.$root.store.server_domain  + "/user/favorites",
+            this.$root.store.server_domain + "/user/favorites",
             // "http://localhost:3000/user/favorites",
             { withCredentials: true }
           );
           console.log(response);
-          for (let i = 0; i < response.length; i++) {
-            if (this._props.recipe.id === response.data[i].id) {
-              this.addedTofav = true;
-              console.log("Added to favorites!");
-              console.log(this.addedTofav);
-            }
-          }
+          this.favoriteRecipes.push(...response.data);
+          console.log("Favorites we got from db: ", this.favoriteRecipes);
         }
       } catch (error) {
         console.log(error);
@@ -138,38 +165,42 @@ export default {
   methods: {
     async like() {
       try {
-        console.log("cliked like");
-        console.log(this.addedTofav);
+        console.log("before adding to favs: ", this.favoriteRecipes);
         const response = await this.axios.post(
-         // "http://localhost:3000/user/favorites",
-          this.$root.store.server_domain +"/user/favorites",
+          // "http://localhost:3000/user/favorites",
+          this.$root.store.server_domain + "/user/favorites",
           { withCredentials: true, recipe_id: this._props.recipe.id }
         );
-
-        console.log(response);
-        console.log("after clicking");
-        this.addedTofav = true;
-        console.log(this.addedTofav);
+        this.favoriteRecipes.push(this._props.recipe.id);
+        console.log("updated list of favs: ", this.favoriteRecipes);
       } catch (error) {
         console.log(error);
       }
     },
-    //MAYBE WE DONT NEED ALL THIS - NEED TO CHECK
-    clickIndication() {
-      console.log("change text color");
-      this.clicked = true;
-      this.active_color = "orange";
-      console.log(this.clicked);
-      console.log(this.active_color);
+
+    addToWatchedRecipes() {
+      console.log("Adding recipe to watched");
+      if (localStorage.watchedRecipes) {
+        let dataFromLS = JSON.parse(localStorage.getItem("watchedRecipes"));
+        console.log("watched recipes ids are:");
+        console.log(dataFromLS["recipes_id"]);
+        this.clickedRecipes = dataFromLS["recipes_id"];
+        if (!this.clickedRecipes.includes(this.recipe.id)) {
+          this.clickedRecipes.push(this.recipe.id);
+          dataFromLS["recipes_id"] = this.clickedRecipes;
+          console.log("Updated list is:");
+          console.log(dataFromLS);
+          localStorage.setItem("watchedRecipes", JSON.stringify(dataFromLS));
+        }
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-.container{
-  border-color: #E87121;
-
+.container {
+  border-color: #e87121;
 }
 
 .recipe-preview {
@@ -202,8 +233,8 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .recipe-preview .recipe-footer .recipe-title {
@@ -251,24 +282,20 @@ export default {
 }
 
 kbd {
-padding: 6px 6px;
-color: white;
-border-radius: 3px;
-font-family: Arial, Helvetica, sans-serif;
+  padding: 6px 6px;
+  color: white;
+  border-radius: 3px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.vegan{
+.vegan {
   background-color: #076e0c;
-  
 }
-.vegetarian{
+.vegetarian {
   background-color: #26d3aa;
 }
 
-.llg{
-    background-color: #d37d0d;
-
+.llg {
+  background-color: #d37d0d;
 }
-
-
 </style>

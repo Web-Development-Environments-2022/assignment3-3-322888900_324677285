@@ -33,7 +33,8 @@ export default {
     async updateFamilyRecipes() {
       try {
         const response = await this.axios.get(
-          process.env.VUE_APP_ROOT_API + "/user/family",
+         // process.env.VUE_APP_ROOT_API + "/user/family",
+          this.$root.store.server_domain + "/user/family",
           // "http://localhost:3000/user/family"
         );
 

@@ -52,10 +52,8 @@
       :options="cuisineAsset"
       placeholder="cuisine"
     ></b-form-select>
-      <!-- @click="$emit('updateLastSearch')" -->
     <b-form @submit.prevent="searchRecipes">
       <b-button
-
         type="submit"
         variant="primary"
         style="width:100px;
@@ -95,11 +93,17 @@
       No Such Recipes
     </b-alert>
     <b-container>
-      <h1> Search results:</h1>
-      <h3 v-if="recipes.length === 0"> No searches yet</h3>
+      <h1>Search results:</h1>
+      <h3 v-if="recipes.length === 0">No searches yet</h3>
       <b-row v-for="r in recipes" :key="r.id">
         <b-col>
-          <RecipePreview  class="recipePreview" :recipe="r" recipe_type="search" :isSearch="true"/>
+          <RecipePreview
+            class="recipePreview"
+            :recipe="r"
+            recipe_type="search"
+            :isSearch="true"
+            :favoriteRecipes="favoriteRecipes"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -135,6 +139,12 @@ export default {
       intolerances_str: "intolerances",
       diets_str: "diets",
     };
+  },
+  props:{
+    favoriteRecipes:{
+      type: Array,
+      required: true,
+    },
   },
   mounted() {
     this.cuisineAsset.push(...cuisineAsset);
@@ -174,7 +184,9 @@ export default {
         console.log("call function search");
         const response = await this.axios.get(
           //"http://localhost:3000/recipes/searchForRecipe/" + this.search,
-          this.$root.store.server_domain+"/recipes/searchForRecipe/" + this.search,
+          this.$root.store.server_domain +
+            "/recipes/searchForRecipe/" +
+            this.search,
           {
             params: {
               query: this.search,
@@ -186,8 +198,8 @@ export default {
             },
           }
         );
-        console.log("last searched:")
-        console.log(response.data[0])
+        console.log("last searched:");
+        console.log(response.data[0]);
         if (localStorage.lastSearch) {
           const recipes = response.data;
           localStorage.setItem("lastSearch", JSON.stringify(response.data[0]));

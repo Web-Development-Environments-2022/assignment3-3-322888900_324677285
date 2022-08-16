@@ -8,6 +8,7 @@
             :recipe="r"
             :recipe_type="page_type"
             :isSearch="isSearch"
+            :favoriteRecipes="favoriteRecipes"
           />
         </b-col>
       </b-row>
@@ -45,7 +46,25 @@ export default {
   data() {
     return {
       recipes: [],
+      favoriteRecipes: [],
     };
+  },
+  async created(){
+    try {
+        const response = await this.axios.get(
+          //process.env.VUE_APP_ROOT_API + "/user/favorites",
+          this.$root.store.server_domain + "/user/favorites",
+          // "http://localhost:3000/user/favorites",
+          { withCredentials: true }
+        );
+        console.log(response);
+        for(let i=0; i<response.data.length; i++){
+           this.favoriteRecipes.push(response.data[i].id)
+        }
+        console.log("Favorites we got from db: ", this.favoriteRecipes);
+      } catch (error) {
+        console.log(error);
+      }
   },
   mounted: function() {
     let vm = this;

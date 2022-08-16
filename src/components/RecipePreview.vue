@@ -44,7 +44,6 @@
       <b-icon-heart-fill></b-icon-heart-fill>
     </button>
     <router-link
-      @click.native="clickIndication"
       v-if="recipe_type !== 'myRecipes'"
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="recipe-preview"
@@ -66,23 +65,31 @@
           <ul class="recipe-overview">
             <li>{{ recipe.readyInMinutes }} minutes</li>
             <li>{{ recipe.aggregateLikes }} likes</li>
-            <li v-if="isSearch" >{{recipe.instructions}}</li>
+            <!-- HERE WE NEED TO PRESENT THE INSTRUCTIONS BETTER - LIKE IN THE RECIPEVIEWPAGE -->
+            <li v-if="recipe_type === 'search'">
+              <div class="wrapped">
+                Instructions: 
+                <ol>
+                  <li v-for="s in recipe.instructions" :key="s.number">
+                    {{ s.step }}
+                  </li>
+                </ol>
+              </div>
+            </li>
+            <!-- ---------------------------------------------------------------- -->
           </ul>
         </div>
         <div>
-          <ul class="recipe-tags">
-            <li v-if="recipe.vegan"><kbd class="vegan">Vegan</kbd></li>
-            <li v-if="recipe.vegetarian">
-              <kbd class="vegetarian">Vegetarian</kbd>
-            </li>
-            <li v-if="recipe.glutenFree"><kbd class="llg">Gluten Free</kbd></li>
-          </ul>
+          <div class="recipe-tags">
+            <kbd class="vegan" v-if="recipe.vegan">Vegan</kbd>
+            <kbd class="vegetarian" v-if="recipe.vegetarian">Vegetarian</kbd>
+            <kbd class="llg" v-if="recipe.glutenFree">Gluten Free</kbd>
+          </div>
         </div>
       </div>
     </router-link>
 
     <router-link
-      @click.native="addToWatchedRecipes"
       v-if="recipe_type === 'myRecipes'"
       :to="{ name: 'myRecipe', params: { recipe: recipe } }"
       class="recipe-preview"
@@ -121,15 +128,14 @@
 export default {
   data() {
     return {
-      favoriteRecipes: [],
       clickedRecipes: [],
     };
   },
   props: {
-    isSearch:{
-        type:Boolean,
-        required: false,
-        default:false
+    isSearch: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     recipe: {
       type: Object,
@@ -139,35 +145,20 @@ export default {
       type: String,
       required: true,
     },
+    favoriteRecipes: {
+      type: Array,
+      required: true,
+    },
   },
+
   async mounted() {
     // geting the watched recipes from LS
     if (localStorage.watchedRecipes) {
       let dataFromLS = JSON.parse(localStorage.getItem("watchedRecipes"));
       this.clickedRecipes = dataFromLS["recipes_id"];
     }
-    if (
-      this.recipe_type !== "myRecipes" &&
-      this.recipe_type !== "search" &&
-      this.recipe_type !== "favorites" 
-    ) {
-      try {
-        if (this.favoriteRecipes.length === 0) {
-          const response = await this.axios.get(
-            //process.env.VUE_APP_ROOT_API + "/user/favorites",
-            this.$root.store.server_domain + "/user/favorites",
-            // "http://localhost:3000/user/favorites",
-            { withCredentials: true }
-          );
-          console.log(response);
-          this.favoriteRecipes.push(...response.data);
-          console.log("Favorites we got from db: ", this.favoriteRecipes);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
   },
+
   methods: {
     async like() {
       try {

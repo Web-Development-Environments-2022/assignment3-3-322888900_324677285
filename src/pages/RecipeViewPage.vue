@@ -81,7 +81,6 @@ export default {
     try {
       console.log("Adding recipe to last seen:");
       console.log(this.$route.params.recipeId);
-      console.log("hereeee"+this.$root.store.server_domain)
 
       const response = await this.axios.post(
         //"http://localhost:3000/user/lastSeenRecipes",
@@ -169,6 +168,23 @@ export default {
     } catch (error) {
       console.log(error);
     }
+  },
+  mounted(){
+      console.log("Adding recipe to watched");
+      if (localStorage.watchedRecipes) {
+        let dataFromLS = JSON.parse(localStorage.getItem("watchedRecipes"));
+        console.log("watched recipes ids are:");
+        console.log(dataFromLS["recipes_id"]);
+        this.clickedRecipes = dataFromLS["recipes_id"];
+        console.log(this.recipe)
+        if (!this.clickedRecipes.includes(this.$route.params.recipeId)) {
+          this.clickedRecipes.push(this.$route.params.recipeId);
+          dataFromLS["recipes_id"] = this.clickedRecipes;
+          console.log("Updated list is:");
+          console.log(dataFromLS);
+          localStorage.setItem("watchedRecipes", JSON.stringify(dataFromLS));
+        }
+      }
   },
 };
 </script>

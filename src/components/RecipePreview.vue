@@ -66,6 +66,7 @@
           <ul class="recipe-overview">
             <li>{{ recipe.readyInMinutes }} minutes</li>
             <li>{{ recipe.aggregateLikes }} likes</li>
+            <li v-if="isSearch" >{{recipe.instructions}}</li>
           </ul>
         </div>
         <div>
@@ -125,6 +126,11 @@ export default {
     };
   },
   props: {
+    isSearch:{
+        type:Boolean,
+        required: false,
+        default:false
+    },
     recipe: {
       type: Object,
       required: true,

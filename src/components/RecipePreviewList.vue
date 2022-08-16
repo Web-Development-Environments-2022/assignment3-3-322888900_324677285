@@ -7,6 +7,7 @@
             class="recipePreview"
             :recipe="r"
             :recipe_type="page_type"
+            :isSearch="isSearch"
           />
         </b-col>
       </b-row>
@@ -29,6 +30,11 @@ import NewRecipeModal from "./NewRecipeModal.vue";
 export default {
   name: "RecipePreviewList",
   props: {
+    isSearch:{
+      type:Boolean,
+      required:false,
+      default:false
+    },
     page_type: {
       type: String,
       required: true,

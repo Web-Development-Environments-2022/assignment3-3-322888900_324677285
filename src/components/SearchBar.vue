@@ -99,7 +99,7 @@
       <h3 v-if="recipes.length === 0"> No searches yet</h3>
       <b-row v-for="r in recipes" :key="r.id">
         <b-col>
-          <RecipePreview class="recipePreview" :recipe="r" recipe_type="search" />
+          <RecipePreview  class="recipePreview" :recipe="r" recipe_type="search" :isSearch="true"/>
         </b-col>
       </b-row>
     </b-container>

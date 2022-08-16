@@ -59,20 +59,12 @@
       </div>
       <div class="form-group">
         <label class="col-form-label">Vegeterian - </label>
-        <input
-          type="checkbox"
-          id="checkbox-vegeterian"
-          v-model="isVegetarian"
-        />
+        <input type="checkbox" id="checkbox-vegetarian" v-model="isVegetarian" />
         <label for="checkbox">{{ isVegetarian }}</label>
       </div>
       <div class="form-group">
         <label class="col-form-label">gluten free - </label>
-        <input
-          type="checkbox"
-          id="checkbox-glutenFree"
-          v-model="isGlutenFree"
-        />
+        <input type="checkbox" id="checkbox-glutenFree" v-model="isGlutenFree"/>
         <label for="checkbox">{{ isGlutenFree }}</label>
       </div>
       <div class="form-group">
@@ -107,26 +99,31 @@ export default {
       servings: "0",
     };
   },
-
+  mounted() {
+    this.isVegan=false
+    this.isVegetarian=false
+    this.isGlutenFree=false
+  },
   methods: {
     async insertRecipe() {
       try {
-        let vegan = "0";
-        let vegetarian = "0";
-        let glutenFree = "0";
+        let vegan = 0;
+        let vegetarian = 0;
+        let glutenFree = 0;
+        console.log("is vegan:"+this.isVegan)
+        console.log("is vegeterian:"+this.isVegetarian)
+        console.log("is gluten:"+this.isGlutenFree)
 
         if (this.isVegan) {
-          vegan = "1";
+          vegan = 1;
         }
         if (this.isVegetarian) {
-          vegetarian = "1";
+          vegetarian = 1;
         }
         if (this.isGlutenFree) {
-          glutenFree = "1";
+          glutenFree = 1;
         }
-        console.log(vegan);
-        console.log(vegetarian);
-        console.log(glutenFree);
+
         const response = await this.axios.post(
          // "http://localhost:3000/user/myRecipes",
           this.$root.store.server_domain+"/user/myRecipes",
@@ -135,7 +132,6 @@ export default {
             duration: this.duration,
             image: this.photos,
             aggregateLikes: this.aggregateLikes,
-            vegan: this.isVegan,
             ingredients: this.ingredients,
             instructions: this.instructions,
             image: this.image,
@@ -147,7 +143,6 @@ export default {
             servings: this.servings,
           }
         );
-        console.log(response);
       } catch (error) {
         console.log(error);
       }

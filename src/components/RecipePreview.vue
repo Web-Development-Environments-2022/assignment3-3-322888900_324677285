@@ -65,18 +65,12 @@
           <ul class="recipe-overview">
             <li>{{ recipe.readyInMinutes }} minutes</li>
             <li>{{ recipe.aggregateLikes }} likes</li>
-            <!-- HERE WE NEED TO PRESENT THE INSTRUCTIONS BETTER - LIKE IN THE RECIPEVIEWPAGE -->
             <li v-if="recipe_type === 'search'">
               <div class="wrapped">
                 Instructions: 
-                <ol>
-                  <li v-for="s in recipe.instructions" :key="s.number">
-                    {{ s.step }}
-                  </li>
-                </ol>
+                {{recipe.instructions}}
               </div>
             </li>
-            <!-- ---------------------------------------------------------------- -->
           </ul>
         </div>
         <div>

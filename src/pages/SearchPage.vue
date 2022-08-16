@@ -9,6 +9,7 @@
         <RecipePreview v-if="!lastSearch === null"
           class="recipePreview"
           :recipe="lastSearch"
+          :isSearch="true"
           recipe_type="search"
         />
       </b-row>

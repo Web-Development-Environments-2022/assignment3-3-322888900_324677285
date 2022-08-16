@@ -45,14 +45,13 @@
       today were passed by word of mouth - which made it very hard to preserve
       these recipes.
     </p>
-    <h2 class="title">Exprecipe Development process:</h2>
+    <h2 class="title">Exprecipe Development Process:</h2>
     <ul>
-      <!-- Need to check the link is correct -->
       <li>
         We first created an open API document via the Swagger tool which
         included the initial API we were planning to build for this website.
         <a
-          href="file:///C:/Users/donnk/Documents/BGU/3/2/%D7%A1%D7%91%D7%99%D7%91%D7%95%D7%AA%20%D7%A4%D7%99%D7%AA%D7%95%D7%97%20%D7%91%D7%90%D7%99%D7%A0%D7%98%D7%A8%D7%A0%D7%98/ex3.1/324677285_322888900/index.html"
+          href="https://app.swaggerhub.com/apis/donchkat/registerAPI/1.0.0"
         >
           Link to Open API document
         </a>
@@ -75,6 +74,37 @@
         </a>
       </li>
     </ul>
+    <h2 class="title"> Some Other Works:</h2>
+      <ul>
+      <li>
+        Another project is our web game: SISE Pacman game
+        <a
+          href="https://github.com/Web-Development-Environments-2022/assignment2-324677285_322888900"
+        >
+          Check it out
+        </a>
+      </li>
+      <li>
+        Another project is individual websites that each of us have build for our Grandparents.
+        <ul>
+          <li>
+        <a
+          href="https://github.com/Web-Development-Environments-2022/324677285"
+        >
+          Katya's website
+        </a>
+          </li>
+      <li>
+        <a
+          href="https://github.com/Web-Development-Environments-2022/322888900"
+        >
+          Niv's website
+        </a>
+      </li>
+        </ul>
+      </li>
+    </ul>
+
   </div>
 </template>
 

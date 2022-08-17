@@ -57,20 +57,15 @@ export default {
           // "http://localhost:3000/user/favorites",
           { withCredentials: true }
         );
-        console.log(response);
         for(let i=0; i<response.data.length; i++){
            this.favoriteRecipes.push(response.data[i].id)
         }
-        console.log("Favorites we got from db: ", this.favoriteRecipes);
       } catch (error) {
-        console.log(error);
       }
   },
   mounted: function() {
     let vm = this;
     vm.$nextTick(function() {
-      console.log("page type is:");
-      console.log(this._props.page_type);
       if (this._props.page_type == "random") this.updateRandomRecipes();
       else if (this._props.page_type == "myRecipes") this.updateMyRecipes();
       else if (this._props.page_type == "favorites")
@@ -81,7 +76,6 @@ export default {
   },
   methods: {
     async updateRandomRecipes() {
-      console.log("Random recipes here~~~");
       try {
         const response = await this.axios.get(
           //process.env.VUE_APP_ROOT_API + "/recipes/random",
@@ -91,17 +85,13 @@ export default {
         );
 
         const recipes = response.data.recipes;
-        console.log("Random recipes are:");
-        console.log(recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
       } catch (error) {
-        console.log(error);
       }
     },
 
     async updateLastSeenRecipes() {
-      console.log("last seen recipes");
       try {
         const response = await this.axios.get(
           //process.env.VUE_APP_ROOT_API + "/user/lastSeenRecipes",
@@ -119,26 +109,21 @@ export default {
             this.recipes.push(recipes[i]);
           }
         }
-        console.log("last seen recipes:");
-        console.log(this.recipes);
+     
       } catch (error) {
-        console.log(error);
       }
     },
     async updateFavoritesRecipes() {
-      console.log("favorite recipes here");
       try {
         const response = await this.axios.get(
           //process.env.VUE_APP_ROOT_API + "/user/favorites",
           this.$root.store.server_domain + "/user/favorites",
           // "http://localhost:3000/user/favorites"
         );
-        console.log(response.data);
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
       } catch (error) {
-        console.log(error);
       }
     },
     async updateMyRecipes() {
@@ -149,17 +134,12 @@ export default {
           // "http://localhost:3000/user/myRecipes"
         );
         try {
-          console.log(response);
           const recipes = response.data;
-          console.log(response.data);
           this.recipes = [];
           this.recipes.push(...recipes);
-          console.log(this.recipes);
         } catch (error) {
-          console.log(error);
         }
       } catch (error) {
-        console.log(error);
       }
     },
   },

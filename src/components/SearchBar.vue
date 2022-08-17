@@ -165,7 +165,6 @@ export default {
         this.intolerances += element + ",";
       });
       this.intolerances.slice(0, -1);
-      console.log("intolerances:" + this.intolerances);
     },
     sortRecipesTime() {
       //need to be checked
@@ -181,7 +180,6 @@ export default {
     },
     async searchRecipes() {
       try {
-        console.log("call function search");
         const response = await this.axios.get(
           //"http://localhost:3000/recipes/searchForRecipe/" + this.search,
           this.$root.store.server_domain +
@@ -198,8 +196,6 @@ export default {
             },
           }
         );
-        console.log("last searched:");
-        console.log(response.data[0]);
         if (localStorage.lastSearch) {
           const recipes = response.data;
           localStorage.setItem("lastSearch", JSON.stringify(response.data[0]));
@@ -208,7 +204,6 @@ export default {
           this.didEnterValue = true;
         }
       } catch (error) {
-        console.log(error);
       }
     },
   },

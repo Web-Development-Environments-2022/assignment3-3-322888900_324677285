@@ -110,10 +110,7 @@ export default {
         let vegan = 0;
         let vegetarian = 0;
         let glutenFree = 0;
-        console.log("is vegan:"+this.isVegan)
-        console.log("is vegeterian:"+this.isVegetarian)
-        console.log("is gluten:"+this.isGlutenFree)
-
+        
         if (this.isVegan) {
           vegan = 1;
         }
@@ -144,7 +141,6 @@ export default {
           }
         );
       } catch (error) {
-        console.log(error);
       }
     },
     async submitRecipe() {

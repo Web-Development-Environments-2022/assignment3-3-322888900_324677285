@@ -60,7 +60,6 @@ export default {
   methods: {
     async like() {
       try {
-        console.log(this.$route.params.recipeId);
         const response = await this.axios.post(
          // "http://localhost:3000/user/favorites",
           this.$root.store.server_domain+"/user/favorites",
@@ -70,18 +69,14 @@ export default {
           }
         );
         this.addedTofav = true;
-        console.log(this.addedTofav);
       } catch (error) {
-        console.log(error);
       }
     },
   },
 
   async mounted() {
     try {
-      console.log("Adding recipe to last seen:");
-      console.log(this.$route.params.recipeId);
-
+    
       const response = await this.axios.post(
         //"http://localhost:3000/user/lastSeenRecipes",
         this.$root.store.server_domain+"/user/lastSeenRecipes",
@@ -89,16 +84,12 @@ export default {
           recipe_id: this.$route.params.recipeId,
         }
       );
-      console.log("response.status", response.status);
       if (response.status !== 200) this.$router.replace("/NotFound");
     } catch (error) {
-      console.log("error.response.status", error.response.status);
       this.$router.replace("/NotFound");
       return;
     }
-    console.log("Adding recipe to clicked");
-    console.log(this.$route.params.recipeId)
-    console.log(localStorage.username)
+ 
     let clicked_recipes = []
     if (localStorage.getItem(localStorage.username) !== null) {
       let clicked_recipes = JSON.parse(
@@ -131,7 +122,6 @@ export default {
 
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
-        console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
@@ -165,7 +155,6 @@ export default {
       };
       this.recipe = _recipe;
     } catch (error) {
-      console.log(error);
     }
   },
  

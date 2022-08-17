@@ -42,24 +42,19 @@ export default {
         // "http://localhost:3000/user/favorites",
         { withCredentials: true }
       );
-      console.log("response is:", response);
       for (let i = 0; i < response.data.length; i++) {
         this.favoriteRecipes.push(response.data[i].id);
       }
-      console.log("Favorites we got from db: ", this.favoriteRecipes);
     } catch (error) {
-      console.log(error);
     }
   },
 
   mounted() {
     //doesnt update the recipe very good
-    console.log(this.lastSearch);
-    console.log(localStorage);
+
     if (localStorage.lastSearch) {
       this.lastSearch = JSON.parse(localStorage.getItem("lastSearch"));
-      console.log("mounted - last Search is:");
-      console.log(this.lastSearch);
+
     }
   },
 };

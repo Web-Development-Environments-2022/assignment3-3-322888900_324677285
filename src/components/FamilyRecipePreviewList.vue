@@ -41,14 +41,10 @@ export default {
           // "http://localhost:3000/user/family"
         );
 
-        console.log(response);
         const recipes = response.data;
-        console.log(response.data);
         this.recipes = [];
         this.recipes.push(...recipes);
-        console.log(this.recipes);
       } catch (error) {
-        console.log(error);
       }
     },
   },

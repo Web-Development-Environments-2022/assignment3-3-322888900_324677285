@@ -156,31 +156,23 @@ export default {
   methods: {
     async like() {
       try {
-        console.log("before adding to favs: ", this.favoriteRecipes);
         const response = await this.axios.post(
           // "http://localhost:3000/user/favorites",
           this.$root.store.server_domain + "/user/favorites",
           { withCredentials: true, recipe_id: this._props.recipe.id }
         );
         this.favoriteRecipes.push(this._props.recipe.id);
-        console.log("updated list of favs: ", this.favoriteRecipes);
       } catch (error) {
-        console.log(error);
       }
     },
 
     addToWatchedRecipes() {
-      console.log("Adding recipe to watched");
       if (localStorage.watchedRecipes) {
         let dataFromLS = JSON.parse(localStorage.getItem("watchedRecipes"));
-        console.log("watched recipes ids are:");
-        console.log(dataFromLS["recipes_id"]);
         this.clickedRecipes = dataFromLS["recipes_id"];
         if (!this.clickedRecipes.includes(this.recipe.id)) {
           this.clickedRecipes.push(this.recipe.id);
           dataFromLS["recipes_id"] = this.clickedRecipes;
-          console.log("Updated list is:");
-          console.log(dataFromLS);
           localStorage.setItem("watchedRecipes", JSON.stringify(dataFromLS));
         }
       }

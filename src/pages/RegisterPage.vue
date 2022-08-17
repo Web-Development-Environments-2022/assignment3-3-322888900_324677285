@@ -278,7 +278,6 @@ export default {
         this.$router.push("/Login");
         // console.log(response);
       } catch (err) {
-        console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },

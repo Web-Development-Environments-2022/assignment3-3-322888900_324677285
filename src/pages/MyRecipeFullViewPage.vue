@@ -30,12 +30,10 @@ export default {
     };
   },
    created() {
-    console.log("showing my recipe")
-    console.log(this.$route.params.recipe)
+ 
     try {
         this.recipe = this.$route.params.recipe
     } catch (error) {
-      console.log(error);
     }
   },
 };

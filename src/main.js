@@ -78,10 +78,8 @@ const shared_data = {
  // server_domain:"http://localhost:3000",
   username: localStorage.username,
   login(username) {
-    console.log(localStorage.username)
     localStorage.setItem("username", username);
     this.username = username;
-    console.log("login", this.username);
     localStorage.setItem("lastSearch", JSON.stringify({}));
     this.lastSearch = {}
     localStorage.setItem("watchedRecipes", JSON.stringify({"recipes_id":[]}))
@@ -90,7 +88,6 @@ const shared_data = {
   },
   
   logout() {
-    console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
     localStorage.removeItem("lastSearch");
@@ -100,7 +97,6 @@ const shared_data = {
 
   },
 };
-console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;
 
 new Vue({
